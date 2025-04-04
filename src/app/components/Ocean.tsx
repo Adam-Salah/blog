@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import useMouse from '../hooks/useMouse';
+import { clamp } from '../modules/MathUtils';
 
 export default function ocean() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -8,6 +10,7 @@ export default function ocean() {
     let context;
 
     const dimensions = useWindowDimensions();
+    const mouse = useMouse();
 
     const fontSize = 54;
     const tileHeight = fontSize + 5;
@@ -52,7 +55,6 @@ export default function ocean() {
     }, [dimensions]);
 
     //the one and only canvas rendering
-
     useEffect(() => {
         if (!canvas) return;
         let context = canvas.getContext('2d');
@@ -64,14 +66,25 @@ export default function ocean() {
         context.fillStyle = '#FFFFFF';
 
         context.clearRect(0, 0, canvas.width, canvas.height);
+        render(context);
+    });
+
+    useEffect(() => {
+        if (!canvas) return;
+
+        console.log(map[0].length)
+        map[clamp(Math.floor(mouse.y / tileHeight), 0, map.length - 1)][clamp(Math.floor(mouse.x / tileWidth), 0, map[0].length - 1)] = 1;
+    }, [mouse]);
+
+    const render = (context: CanvasRenderingContext2D) => {
         for (let i = 0; i < map.length; i++) {
-            let line = "";
+            let line = '';
             for (let j = 0; j < map[i].length; j++) {
                 line += map[i][j];
             }
             context.fillText(line, 10, 50 + i * tileHeight);
         }
-    });
+    };
 
     return <canvas ref={canvasRef} id='ocean' className='h-screen' />;
 }
