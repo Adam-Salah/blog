@@ -4,7 +4,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions';
 import useMouse from '../hooks/useMouse';
 import { clamp } from '../modules/MathUtils';
 
-export default function ocean() {
+export default function Ocean() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const canvas = canvasRef.current;
     let context;
@@ -16,7 +16,7 @@ export default function ocean() {
     const tileHeight = fontSize + 5;
     const tileWidth = 30; //gotta do the math urself for that one :(
 
-    const [map, setMap] = useState<number[][]>([[]]);
+    const [map, ] = useState<number[][]>([[]]);
 
     useEffect(() => {
         if (!canvas) return;
@@ -27,8 +27,8 @@ export default function ocean() {
         canvas.width = dimensions.width;
         canvas.height = dimensions.height;
 
-        let mapHeight: number = Math.floor(canvas.height / tileHeight);
-        let currentHeight: number = map.length;
+        const mapHeight: number = Math.floor(canvas.height / tileHeight);
+        const currentHeight: number = map.length;
 
         if (currentHeight <= mapHeight) {
             for (let i = currentHeight; i < mapHeight; i++) {
@@ -38,8 +38,8 @@ export default function ocean() {
             map.splice(mapHeight - currentHeight);
         }
 
-        let mapWidth: number = Math.floor(canvas.width / tileWidth);
-        let currentWidth: number = map[0].length;
+        const mapWidth: number = Math.floor(canvas.width / tileWidth);
+        const currentWidth: number = map[0].length;
 
         if (currentWidth <= mapWidth) {
             for (let i = 0; i < mapHeight; i++) {
@@ -57,7 +57,7 @@ export default function ocean() {
     //the one and only canvas rendering
     useEffect(() => {
         if (!canvas) return;
-        let context = canvas.getContext('2d');
+        const context = canvas.getContext('2d');
         if (!context) return;
         if (!dimensions) return;
 
