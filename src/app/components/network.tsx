@@ -7,131 +7,93 @@ export default function Network() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const previousWindowWidthRef = useRef<number>(0);
     const proximity = useRef<number>(0);
+    const fadeThreshold = useRef<number>(0);
 
-    const fps = 240;
-    const numPoints = 150;
-    const fadeThreshold = 100;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 800;
+    const fps = isMobile ? 60 : 240;
+    const numPoints = isMobile ? 150 : 150;
     const speed = 25;
 
     const [points] = useState<Point[]>([]);
 
-
-    //compute physics
     const physics = (dt: number) => {
-        // get canvas
         const canvas = canvasRef.current!;
-        points.forEach((p) => {
-            // new position
+        for (let i = 0; i < points.length; i++) {
+            const p = points[i];
             p.x += p.fx * speed * dt;
             p.y += p.fy * speed * dt;
 
-            // bounds loop
-            if (p.x < 0) {
-                p.x = canvas.width;
-            } else if (p.x > canvas.width) {
-                p.x = 0;
-            }
-            if (p.y < 0) {
-                p.y = canvas.height;
-            } else if (p.y > canvas.height) {
-                p.y = 0;
-            }
+            if (p.x < 0) p.x = canvas.width;
+            else if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            else if (p.y > canvas.height) p.y = 0;
 
-            // random movement
             let random = Math.random() - 0.5;
-            if (random < 0.05 || random > -0.05) {
-                p.fx += random * dt;
-            }
+            if (random < 0.05 && random > -0.05) p.fx += random * dt;
             random = Math.random() - 0.5;
-            if (random < 0.05 || random > -0.05) {
-                p.fy += random * dt;
-            }
+            if (random < 0.05 && random > -0.05) p.fy += random * dt;
 
-            // deceleration
             const ogfx = Math.abs(p.ogfx);
             if (p.fx > -ogfx || p.fx < ogfx) {
                 p.fx *= 0.9;
-                if (p.fx < ogfx && p.fx > -ogfx) {
-                    p.fx = Math.sign(p.fx) * ogfx;
-                }
+                if (p.fx < ogfx && p.fx > -ogfx) p.fx = Math.sign(p.fx) * ogfx;
             }
             const ogfy = Math.abs(p.ogfy);
             if (p.fy > -ogfy || p.fy < ogfy) {
                 p.fy *= 0.9;
-                if (p.fy < ogfy && p.fy > -ogfy) {
-                    p.fy = Math.sign(p.fy) * ogfy;
-                }
+                if (p.fy < ogfy && p.fy > -ogfy) p.fy = Math.sign(p.fy) * ogfy;
             }
-        });
+        }
     };
 
-    // render draw
     const render = () => {
-        // get canvas & context
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext('2d')!;
-
-        // fill background
         ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // draw points
         ctx.fillStyle = '#000';
-        points.forEach((p) => {
+        for (let i = 0; i < points.length; i++) {
+            const p = points[i];
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
             ctx.fill();
-        });
+        }
 
-        // draw lines
         for (let i = 0; i < points.length; i++) {
+            const p1 = points[i];
             for (let j = i + 1; j < points.length; j++) {
-                const p1 = points[i];
                 const p2 = points[j];
-
-                // shortest distance
                 let dx = Math.abs(p1.x - p2.x);
                 let dy = Math.abs(p1.y - p2.y);
 
-                if (dx > canvas.width / 2) {
-                    dx = canvas.width - dx;
-                }
-                if (dy > canvas.height / 2) {
-                    dy = canvas.height - dy;
-                }
+                if (dx > canvas.width / 2) dx = canvas.width - dx;
+                if (dy > canvas.height / 2) dy = canvas.height - dy;
 
-                const dist = Math.sqrt(dx * dx + dy * dy);
+                const dist = dx * dx + dy * dy;
+                const prox = proximity.current;
+                const fade = fadeThreshold.current;
+                const maxDist = (prox + fade) * (prox + fade);
 
-                if (dist <= proximity.current + fadeThreshold) {
+                if (dist <= maxDist) {
                     let alpha = 0.2;
-                    if (dist > proximity.current) {
-                        alpha = 0.2 * (1 - (dist - proximity.current) / fadeThreshold);
+                    if (dist > prox * prox) {
+                        alpha = 0.2 * (1 - (Math.sqrt(dist) - prox) / fade);
                     }
                     ctx.strokeStyle = 'rgba(0,0,0,' + alpha + ')';
 
-                    let x1 = p1.x;
-                    let y1 = p1.y;
-                    let x2 = p2.x;
-                    let y2 = p2.y;
-
-                    // horizontal edge
+                    let x1 = p1.x,
+                        y1 = p1.y,
+                        x2 = p2.x,
+                        y2 = p2.y;
                     if (Math.abs(x1 - x2) > canvas.width / 2) {
-                        if (x1 > x2) {
-                            x1 -= canvas.width;
-                        } else {
-                            x2 -= canvas.width;
-                        }
+                        if (x1 > x2) x1 -= canvas.width;
+                        else x2 -= canvas.width;
                     }
-                    // vertical edge
                     if (Math.abs(y1 - y2) > canvas.height / 2) {
-                        if (y1 > y2) {
-                            y1 -= canvas.height;
-                        } else {
-                            y2 -= canvas.height;
-                        }
+                        if (y1 > y2) y1 -= canvas.height;
+                        else y2 -= canvas.height;
                     }
-
-                    // draw and wrap if need be
                     ctx.beginPath();
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
@@ -159,39 +121,38 @@ export default function Network() {
         }
     };
 
-    // render 30fps
     useEffect(() => {
         lastUpdate.current = Date.now();
-
-        const interval = setInterval(() => {
-            const dt = (Date.now() - lastUpdate.current) / 1000;
-            lastUpdate.current = Date.now();
+        let running = true;
+        const loop = () => {
+            if (!running) return;
+            const now = Date.now();
+            const dt = (now - lastUpdate.current) / 1000;
+            lastUpdate.current = now;
             physics(dt);
             render();
-        }, 1000 / fps);
+            setTimeout(loop, 1000 / fps);
+        };
+        loop();
+        return () => {
+            running = false;
+        };
+    }, []);
 
-        return () => clearInterval(interval);
-    });
-
-    // resize
     useEffect(() => {
         const canvas = canvasRef.current!;
-
         previousWindowWidthRef.current = window.innerWidth;
-        proximity.current = window.innerWidth / 15;
+        proximity.current = isMobile ? window.innerWidth / 4 : window.innerWidth / 15;
+        fadeThreshold.current = proximity.current / 3;
 
         const resize = () => {
-            // width
             canvas.width = window.innerWidth;
             const beforeAfterWidthRatio = window.innerWidth / previousWindowWidthRef.current;
-            points.forEach((p) => {
-                p.x *= beforeAfterWidthRatio;
-            });
+            for (let i = 0; i < points.length; i++) {
+                points[i].x *= beforeAfterWidthRatio;
+            }
             proximity.current *= beforeAfterWidthRatio;
-
             previousWindowWidthRef.current = window.innerWidth;
-
-            // height
             canvas.height = 0;
             canvas.height = document.documentElement.scrollHeight;
             const ctx = canvas.getContext('2d');
@@ -203,19 +164,18 @@ export default function Network() {
 
         resize();
         window.addEventListener('resize', resize);
-
         return () => {
             window.removeEventListener('resize', resize);
         };
-    });
+    }, []);
 
-    //create points
     useEffect(() => {
         const canvas = canvasRef.current!;
+        points.length = 0;
         for (let i = 0; i < numPoints; i++) {
             const fx = Math.random() - 0.5;
             const fy = Math.random() - 0.5;
-            const p: Point = {
+            points.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 fx: fx,
@@ -223,10 +183,9 @@ export default function Network() {
                 ogfx: fy,
                 ogfy: fy,
                 r: 0,
-            };
-            points.push(p);
+            });
         }
-    });
+    }, [numPoints]);
 
     return <canvas ref={canvasRef} className='absolute z-[-10] w-screen' />;
 }

@@ -1,11 +1,12 @@
 {
   "name": "blog",
   "version": "0.1.0",
-  "homepage": "https://adam-salah.github.io/blog/",
+  "homepage": "https://adam-salah.github.io/",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "deploy": "npm run build && touch ./out/.nojekyll && gh-pages -d out -t",
     "start": "next start",
     "lint": "next lint"
   },

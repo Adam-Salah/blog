@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <div className='home text-xl'>
             <Network />
-            <div className='ml-[15%] mr-[15%] pt-15 pb-20 pl-[5%] pr-[5%] mask-x-from-95% mask-y-from-99% bg-[#ffffff33] backdrop-blur-md rounded-xl'>
+            <div className='ml-[calc(15%*var(--small-mult))] mr-[calc(15%*var(--small-mult))] pt-15 pb-15 pl-[5%] pr-[5%] mask-x-from-95% mask-y-from-99% bg-[#ffffff33] backdrop-blur-md rounded-xl'>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet quos, quaerat molestiae dolor inventore in commodi maiores omnis animi
                 numquam pariatur corporis cupiditate laboriosam, nihil quis excepturi nemo? Nulla iure ex similique enim, maiores eaque temporibus
                 dolorum aliquid, tempore possimus vel aut eligendi inventore ducimus consectetur, hic veritatis nemo velit tenetur. Vero explicabo
