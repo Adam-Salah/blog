@@ -1,26 +1,20 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import useMouse from '../hooks/useMouse';
-import { MouseInfo } from '../types';
 
 export default function Network() {
+    const lastUpdate = useRef<number>(0);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    // const mouseRef = useRef<MouseInfo>(useMouse());
     const previousWindowWidthRef = useRef<number>(0);
     const proximity = useRef<number>(0);
 
     const fps = 240;
     const numPoints = 150;
     const fadeThreshold = 100;
-    // const forceRadius = 200;
     const speed = 25;
 
-    const [points, setPoints] = useState<Point[]>([]);
+    const [points] = useState<Point[]>([]);
 
-    // TODO
-    // turn into hook
-    let lastUpdate = useRef<number>(0);
 
     //compute physics
     const physics = (dt: number) => {
@@ -54,14 +48,14 @@ export default function Network() {
             }
 
             // deceleration
-            let ogfx = Math.abs(p.ogfx);
+            const ogfx = Math.abs(p.ogfx);
             if (p.fx > -ogfx || p.fx < ogfx) {
                 p.fx *= 0.9;
                 if (p.fx < ogfx && p.fx > -ogfx) {
                     p.fx = Math.sign(p.fx) * ogfx;
                 }
             }
-            let ogfy = Math.abs(p.ogfy);
+            const ogfy = Math.abs(p.ogfy);
             if (p.fy > -ogfy || p.fy < ogfy) {
                 p.fy *= 0.9;
                 if (p.fy < ogfy && p.fy > -ogfy) {
@@ -72,7 +66,7 @@ export default function Network() {
     };
 
     // render draw
-    const render = (dt: number) => {
+    const render = () => {
         // get canvas & context
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext('2d')!;
@@ -170,14 +164,14 @@ export default function Network() {
         lastUpdate.current = Date.now();
 
         const interval = setInterval(() => {
-            let dt = (Date.now() - lastUpdate.current) / 1000;
+            const dt = (Date.now() - lastUpdate.current) / 1000;
             lastUpdate.current = Date.now();
             physics(dt);
-            render(dt);
+            render();
         }, 1000 / fps);
 
         return () => clearInterval(interval);
-    }, []);
+    });
 
     // resize
     useEffect(() => {
@@ -189,7 +183,7 @@ export default function Network() {
         const resize = () => {
             // width
             canvas.width = window.innerWidth;
-            let beforeAfterWidthRatio = window.innerWidth / previousWindowWidthRef.current;
+            const beforeAfterWidthRatio = window.innerWidth / previousWindowWidthRef.current;
             points.forEach((p) => {
                 p.x *= beforeAfterWidthRatio;
             });
@@ -213,15 +207,15 @@ export default function Network() {
         return () => {
             window.removeEventListener('resize', resize);
         };
-    }, []);
+    });
 
     //create points
     useEffect(() => {
         const canvas = canvasRef.current!;
         for (let i = 0; i < numPoints; i++) {
-            let fx = Math.random() - 0.5;
-            let fy = Math.random() - 0.5;
-            let p: Point = {
+            const fx = Math.random() - 0.5;
+            const fy = Math.random() - 0.5;
+            const p: Point = {
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 fx: fx,
@@ -232,7 +226,7 @@ export default function Network() {
             };
             points.push(p);
         }
-    }, []);
+    });
 
     return <canvas ref={canvasRef} className='absolute z-[-10] w-screen' />;
 }

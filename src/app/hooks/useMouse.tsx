@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { MouseInfo } from '../types';
 
 export default function useMouse() {
-    const [mouseInfo, setMouseInfo] = useState<MouseInfo>({
+    const [mouseInfo] = useState<MouseInfo>({
         x: 0,
         y: 0,
     });
@@ -19,7 +19,7 @@ export default function useMouse() {
     useEffect(() => {
         window.addEventListener('mousemove', handleMouseMove);
         return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+    });
 
     return mouseInfo;
 }
