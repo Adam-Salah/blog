@@ -12,7 +12,8 @@ export default function useMouse() {
     });
 
     const handleMouseMove = (e: MouseEvent) => {
-        setMouseInfo({ x: e.x, y: e.y });
+        mouseInfo.x = e.x;
+        mouseInfo.y = e.y;
     };
 
     useEffect(() => {
