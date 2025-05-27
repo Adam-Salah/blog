@@ -28,6 +28,13 @@
     }
 }
 
+/* Fix overflow */
+html,
+body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+}
+
 body {
     font-family: 'Rambla';
     background: var(--background);

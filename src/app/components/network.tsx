@@ -153,8 +153,9 @@ export default function Network() {
             }
             proximity.current *= beforeAfterWidthRatio;
             previousWindowWidthRef.current = window.innerWidth;
+
             canvas.height = 0;
-            canvas.height = document.documentElement.scrollHeight;
+            canvas.height = document.documentElement.scrollHeight - document.getElementById('header')!.offsetHeight - 1;
             const ctx = canvas.getContext('2d');
             if (ctx) {
                 ctx.fillStyle = '#fff';
