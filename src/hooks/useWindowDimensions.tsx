@@ -3,7 +3,7 @@
 //
 
 import { useEffect, useState } from 'react';
-import { Dimensions } from '../types';
+import { Dimensions } from '../../types';
 
 export default function useWindowDimensions() {
     const [windowDimensions, setWindowDimensions] = useState<Dimensions>();

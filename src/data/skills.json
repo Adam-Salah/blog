@@ -1,0 +1,16 @@
+[
+    {
+        "id": 0,
+        "name": "React",
+        "text": "I LOVE REACT",
+        "image": "/svg/react.svg",
+        "size": 3
+    },
+    {
+        "id": 1,
+        "name": "Typescript",
+        "text": "I LOVE REACT",
+        "image": "/svg/react.svg",
+        "size": 3
+    }
+]

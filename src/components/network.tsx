@@ -11,9 +11,9 @@ export default function Network() {
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 800;
     const fps = isMobile ? 60 : 240;
-    const numPoints = isMobile ? 150 : 150;
     const speed = 25;
-
+    
+    const [numPoints, setNumPoints] = useState<number>(100);
     const [points] = useState<Point[]>([]);
 
     const physics = (dt: number) => {
@@ -142,7 +142,7 @@ export default function Network() {
     useEffect(() => {
         const canvas = canvasRef.current!;
         previousWindowWidthRef.current = window.innerWidth;
-        proximity.current = isMobile ? window.innerWidth / 4 : window.innerWidth / 15;
+        proximity.current = window.innerWidth / 15;
         fadeThreshold.current = proximity.current / 3;
 
         const resize = () => {
@@ -153,6 +153,8 @@ export default function Network() {
             }
             proximity.current *= beforeAfterWidthRatio;
             previousWindowWidthRef.current = window.innerWidth;
+
+            setNumPoints(window.innerHeight / 4);
 
             canvas.height = 0;
             canvas.height = document.documentElement.scrollHeight - document.getElementById('header')!.offsetHeight - 1;
@@ -171,6 +173,7 @@ export default function Network() {
     }, []);
 
     useEffect(() => {
+        console.log(numPoints)
         const canvas = canvasRef.current!;
         points.length = 0;
         for (let i = 0; i < numPoints; i++) {
