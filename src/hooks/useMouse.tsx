@@ -3,7 +3,7 @@
 //
 
 import { useEffect, useState } from 'react';
-import { MouseInfo } from '../../types';
+import { MouseInfo } from '../types';
 
 export default function useMouse() {
     const [mouseInfo] = useState<MouseInfo>({
