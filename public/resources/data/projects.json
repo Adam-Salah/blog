@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "src": "/resources/projects/images/blog_card_thumbnail.webp",
+        "alt": "alt blog",
+        "href": "/"
+    },
+    {
+        "id": 1,
+        "src": "/resources/projects/images/transit_map_card_thumbnail.png",
+        "alt": "alt transit",
+        "href": "/projects/transit-map"
+    }
+]

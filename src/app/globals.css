@@ -10,24 +10,19 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
-    --small-mult: 1;
-    font-size: 1.3rem;
+    --flavor: #2c19ff;
+    font-size: 1.1rem;
 }
 
-/* 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-} */
 
-@media screen and (max-width: 1000px) {
+@media (prefers-color-scheme: dark) {
     :root {
-        --small-mult: 0.5;
-        font-size: 1rem;
+        --background: #000000;
+        --foreground: #ffffff;
+        --flavor: #4AF626;
     }
 }
+
 
 /* Fix overflow */
 html,
