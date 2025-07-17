@@ -10,5 +10,47 @@
         "src": "/resources/projects/images/transit_map_card_thumbnail.png",
         "alt": "alt transit",
         "href": "/projects/transit-map"
+    },
+    {
+        "id": 2,
+        "src": "/resources/projects/images/blog_card_thumbnail.webp",
+        "alt": "alt blog",
+        "href": "/"
+    },
+        {
+        "id": 3,
+        "src": "/resources/projects/images/blog_card_thumbnail.webp",
+        "alt": "alt blog",
+        "href": "/"
+    },
+    {
+        "id": 4,
+        "src": "/resources/projects/images/transit_map_card_thumbnail.png",
+        "alt": "alt transit",
+        "href": "/projects/transit-map"
+    },
+    {
+        "id": 5,
+        "src": "/resources/projects/images/blog_card_thumbnail.webp",
+        "alt": "alt blog",
+        "href": "/"
+    },
+        {
+        "id": 6,
+        "src": "/resources/projects/images/blog_card_thumbnail.webp",
+        "alt": "alt blog",
+        "href": "/"
+    },
+    {
+        "id": 7,
+        "src": "/resources/projects/images/transit_map_card_thumbnail.png",
+        "alt": "alt transit",
+        "href": "/projects/transit-map"
+    },
+    {
+        "id": 8,
+        "src": "/resources/projects/images/blog_card_thumbnail.webp",
+        "alt": "alt blog",
+        "href": "/"
     }
 ]

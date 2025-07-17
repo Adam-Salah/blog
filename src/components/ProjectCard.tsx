@@ -3,7 +3,7 @@ import { Project } from "@/interfaces";
 export default function ProjectCard(props: ProjectCardProps) {
     return (
         <div
-            className="outline-solid outline-1 outline-(--flavor) object-cover overflow-hidden hover:scale-103"
+            className="outline-solid outline-1 outline-(--flavor) object-cover overflow-hidden hover:scale-103 cursor-pointer"
             onClick={() => location.href = props.project.href}
         >
             <div className="w-full h-full aspect-square p-3">

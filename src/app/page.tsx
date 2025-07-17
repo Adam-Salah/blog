@@ -5,12 +5,10 @@ import { Page } from "@/enums";
 import { ReactNode, useEffect, useState } from "react";
 import Home from "@/app/pages/Home";
 import Projects from "@/app/pages/Projects";
-import { useParams } from "next/navigation";
+import Popup from "@/components/Popup";
 
 export default function App() {
-    const params = useParams<{ page: string }>()
-    
-    const [pages, setPages] = useState<Map<Page, ReactNode>>(new Map<Page, ReactNode>());
+    const [pages] = useState<Map<Page, ReactNode>>(new Map<Page, ReactNode>());
     const [currentPage, setCurrentPage] = useState<Page>();
 
     pages.set(Page.Home, <Home />);
@@ -19,23 +17,28 @@ export default function App() {
     //pages.set(Page.About, <About />);
 
     useEffect(() => {
-        const redirect = location.hash as Page;
-        console.log(redirect);
+        const hash = location.hash.substring(1)
+        if (location.hash !== Page.Home && hash) {
+            setCurrentPage(hash as Page);
+        } else {
+            setCurrentPage(Page.Home)
+        }
     }, []);
 
     useEffect(() => {
         if (currentPage) {
-            if (currentPage !== Page.Home) location.pathname = currentPage.toString();
-            else location.pathname = '';
+            if (currentPage !== Page.Home) location.hash = currentPage;
+            else location.hash = '';
         }
-    }, [currentPage])
+    }, [currentPage]);
 
     return (
         <>
             <Header setCurrentPage={setCurrentPage} />
             <div className='flex justify-center items-center'>
+            <Popup />
                 <div className='w-full max-w-[960px] ml-3 mr-3 pt-5 pb-15 pl-[5%] pr-[5%] mask-x-from-95% bg-opacity-50 backdrop-blur-md rounded-xl'>
-                    {currentPage ? pages.get(currentPage) : pages.get(Page.Home)}
+                    {currentPage ? pages.get(currentPage) : null}
                 </div>
             </div >
         </>
