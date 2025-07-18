@@ -1,46 +1,42 @@
-'use client'
+import Hbr from "@/components/mini/hbr";
 
-import Header from "@/components/Header";
-import { Page } from "@/enums";
-import { ReactNode, useEffect, useState } from "react";
-import Home from "@/app/pages/Home";
-import Projects from "@/app/pages/Projects";
-import Popup from "@/components/Popup";
-
-export default function App() {
-    const [pages] = useState<Map<Page, ReactNode>>(new Map<Page, ReactNode>());
-    const [currentPage, setCurrentPage] = useState<Page>();
-
-    pages.set(Page.Home, <Home />);
-    //pages.set(Page.Blog, <Blog />);
-    pages.set(Page.Projects, <Projects />);
-    //pages.set(Page.About, <About />);
-
-    useEffect(() => {
-        const hash = location.hash.substring(1)
-        if (location.hash !== Page.Home && hash) {
-            setCurrentPage(hash as Page);
-        } else {
-            setCurrentPage(Page.Home)
-        }
-    }, []);
-
-    useEffect(() => {
-        if (currentPage) {
-            if (currentPage !== Page.Home) location.hash = currentPage;
-            else location.hash = '';
-        }
-    }, [currentPage]);
-
+export default function Page() {
     return (
         <>
-            <Header setCurrentPage={setCurrentPage} />
-            <div className='flex justify-center items-center'>
-            <Popup />
-                <div className='w-full max-w-[960px] ml-3 mr-3 pt-5 pb-15 pl-[5%] pr-[5%] mask-x-from-95% bg-opacity-50 backdrop-blur-md rounded-xl'>
-                    {currentPage ? pages.get(currentPage) : null}
+            <p> Hello and welcome to my blog!</p>
+            <br />
+            <p> I am Adam, a programmer based in Montréal.</p>
+            <p> I am currently pursuing a software engineering degree at ÉTS</p>
+            <p> Oh, and I'm also a member at my university's video game club, Conjure.</p>
+            <br />
+            <p>I enjoy exploring different technologies and learning about every domain. </p>
+            <p>Here is what I'm most familiar with: </p>
+            <br />
+            <h1 className='text-xl'><b>Web technologies</b></h1>
+            <Hbr />
+            <p>Yes you heard that right! Our dearest World Wide Web is the tool I favor for personal projects.</p>
+            <p>The Web allows me to showcase my projects easily while keeping their structure simple and reusable.</p>
+            <p>
+                I am proficient with the basics, such as HTML, Javascript (though I prefer Typescript) and CSS, but where I shine best is with
+                React!
+            </p>
+            <p>I generally use NextJS as the framework and deploy as a static site on Github</p>
+            <p>I used these technologies to build this website. I think I might have spent too much time on the background animations though... math and physics can get confusing (I still love them though {'<'}3)</p>
+
+            <div className='sm:pl-10 sm:pr-10 sm:pt-5 sm:pb-5'>
+                <img src='/resources/projects/images/transit_map_card_thumbnail.png' alt='Map of Montréal. There are dots on the map to represent buses. One dot is selected. A box displays basic information on the bus, such as line number, bus ID, speed, occupancy and last update time.' className='pb-3' />
+                <div className='pl-10 pr-10'>
+                    <figcaption className='text-[0.8rem] text-center text-gray-500'>
+                        Here's a little project I'm working on. It's a map of every active bus in Montréal! Usually maps will display only the
+                        buses you select so I thought: "Why not have all of them at once". I don't plan on adding routing features, this project
+                        is for fun. I like the idea of having a general overview of the city and seeing the buses move in real time like
+                        little ants :P
+                    </figcaption>
                 </div>
-            </div >
+            </div>
+            <br />
+            <br />
+            <p>This website is still in construction. It kinda sucks right now... But fret not! I will add more over the next few days ;</p>
         </>
     );
 }

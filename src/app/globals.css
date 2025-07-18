@@ -8,12 +8,12 @@
 */
 
 :root {
+    font-size: 1.1rem;
+    scrollbar-width: thin;
     --background: #ffffff;
     --foreground: #171717;
     --flavor: #2c19ff;
     --center: 960px;
-    font-size: 1.1rem;
-    scrollbar-width: thin;
 }
 
 
@@ -25,7 +25,6 @@
     }
 }
 
-
 /* Fix overflow */
 html,
 body {
@@ -34,27 +33,31 @@ body {
 }
 
 body {
-    font-family: 'Rambla';
     background: var(--background);
     color: var(--foreground);
 }
 
 .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 48px;
     height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: #FF3D00;
+    border: 5px solid var(--foreground);
+    border-bottom-color: var(--background);
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    }
+}
 
-    @keyframes rotation {
+@keyframes rotation {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
-    } 
+}

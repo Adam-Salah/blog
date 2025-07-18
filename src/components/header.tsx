@@ -1,29 +1,32 @@
 'use client';
 
-import { Page } from "@/enums";
-import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 
-export default function Header(props: HeaderProps) {
+export default function Header() {
     return (
         <div className='header sticky z-[100] top-[0] flex p-5 bg-(--background) text-lg' id='header'>
-            <div className='header-logo m-auto p-5 text-[1.5em]' onClick={() => props.setCurrentPage(Page.Home)}>
-                <a className='cursor-pointer'>Adam Salah</a>
-            </div>
+            <Link href={'/'} className='cursor-pointer'>
+                <div className='header-logo m-auto p-5 text-[1.5em]'>
+                    Adam Salah
+                </div>
+            </Link>
             <div className='flex flex-auto flex-wrap justify-end m-auto gap-3'>
-                <div className='p-5 cursor-pointer' onClick={() => props.setCurrentPage(Page.Blog)}>
-                    <a>Blog</a>
-                </div>
-                <div className='p-5 cursor-pointer' onClick={() => props.setCurrentPage(Page.Projects)}>
-                    <a>Projects</a>
-                </div>
-                <div className='p-5 cursor-pointer' onClick={() => props.setCurrentPage(Page.About)}>
-                    <a>About</a>
-                </div>
+                <Link href={'/projects'}>
+                    <div className='px-5 py-2 sm:py-5 cursor-pointer'>
+                        Projects
+                    </div>
+                </Link>
+                {/* <Link href={'/blog'}>
+                    <div className='px-5 py-2 sm:py-5 cursor-pointer'>
+                        Blog
+                    </div>
+                </Link> */}
+                {/* <Link href={'/about'}>
+                    <div className='px-5 py-2 sm:py-5 cursor-pointer'>
+                        About
+                    </div>
+                </Link> */}
             </div>
         </div>
     );
-}
-
-interface HeaderProps {
-    setCurrentPage: Dispatch<SetStateAction<Page | undefined>>;
 }

@@ -1,7 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function NotFound() {
-  return (
-    <div>
-        <p>Page not found</p>
-    </div>
-  )
+  redirect('/');
 }

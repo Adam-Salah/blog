@@ -15,7 +15,12 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body>
-                {children}
+                <Header />
+                <div className='flex justify-center items-center'>
+                    <div className='w-full max-w-[960px] ml-3 mr-3 pt-5 pb-15 pl-[5%] pr-[5%] mask-x-from-95% bg-opacity-50 backdrop-blur-md rounded-xl'>
+                        {children}
+                    </div>
+                </div >
             </body >
         </html >
     );

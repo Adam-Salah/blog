@@ -1,21 +1,11 @@
 'use client'
 
 import ProjectCard from "@/components/ProjectCard";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Project } from "@/interfaces";
+import { projects } from '@/data/projects';
 
-export default function ProjectCardContainer(props: ProjectCardProps) {
-
-    const [projects, setProjects] = useState<Project[]>();
-
-    useEffect(() => {
-        fetch('/resources/data/projects.json')
-            .then((res) => res.json())
-            .then((data) => { setProjects(data as Project[]) });
-    }, [])
-
+export default function ProjectCardContainer() {
     return (
-        <div className="mt-5 grid grid-cols-2 gap-5">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 auto-cols-max gap-5">
             {
                 projects?.map((project) => {
                     return <ProjectCard key={project.id} project={project}></ProjectCard>
@@ -23,8 +13,4 @@ export default function ProjectCardContainer(props: ProjectCardProps) {
             }
         </div>
     );
-}
-
-interface ProjectCardProps {
-    setSelectedCardId: Dispatch<SetStateAction<number | undefined>>;
 }
