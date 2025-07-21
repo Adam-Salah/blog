@@ -1,9 +1,11 @@
 'use client';
 
-export default function Hbr() {
+export default function Hbr(props: { size: number }) {
     return (
-        <div className='h-[10px]'>
-            <br />
+        <div>
+            {[...Array(props.size).keys()].map((i) => (
+                <br key={i} />
+            ))}
         </div>
     );
 }

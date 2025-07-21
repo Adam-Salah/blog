@@ -12,9 +12,20 @@ export default function Network() {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 800;
     const fps = isMobile ? 60 : 240;
     const speed = 25;
-    
+
+    const [backgroundColor, setBackgroundColor] = useState<string>();
+    const [foregroundColor, setForegroundColor] = useState<string>();
+
+    useEffect(() => {
+            const style = window.getComputedStyle(document.body);
+            setBackgroundColor(style.getPropertyValue('--background'));
+            setForegroundColor(style.getPropertyValue('--foreground'));
+    }, [])
+
     const [numPoints, setNumPoints] = useState<number>(100);
     const [points] = useState<Point[]>([]);
+
+    const [hasHeightChanged] = useState<boolean>(false);
 
     const physics = (dt: number) => {
         const canvas = canvasRef.current!;
@@ -52,7 +63,7 @@ export default function Network() {
         ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = '#000';
+        ctx.fillStyle = foregroundColor || '000000';
         for (let i = 0; i < points.length; i++) {
             const p = points[i];
             ctx.beginPath();
@@ -160,20 +171,19 @@ export default function Network() {
             canvas.height = document.documentElement.scrollHeight - document.getElementById('header')!.offsetHeight - 1;
             const ctx = canvas.getContext('2d');
             if (ctx) {
-                ctx.fillStyle = '#fff';
+                ctx.fillStyle = backgroundColor || '#ffffff';
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
         };
-
         resize();
         window.addEventListener('resize', resize);
         return () => {
             window.removeEventListener('resize', resize);
         };
-    }, []);
+    }, [hasHeightChanged]);
 
     useEffect(() => {
-        console.log(numPoints)
+        console.log(numPoints);
         const canvas = canvasRef.current!;
         points.length = 0;
         for (let i = 0; i < numPoints; i++) {

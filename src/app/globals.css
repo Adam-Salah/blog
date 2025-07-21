@@ -1,27 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Gidole&family=Rambla:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @import 'tailwindcss';
 
-/* Fonts
-    Gidole
-    Rambla
-    Ubuntu
-*/
-
 :root {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     scrollbar-width: thin;
     --background: #ffffff;
     --foreground: #171717;
-    --flavor: #2c19ff;
+    /* --flavor: #2c19ff; */
+    --flavor: var(--foreground)
     --center: 960px;
 }
-
 
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #000000;
         --foreground: #ffffff;
-        --flavor: #4AF626;
+        /* --flavor: #4af626; */
     }
 }
 
@@ -41,6 +34,7 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
+    padding: 1;
     transform: translate(-50%, -50%);
     width: 48px;
     height: 48px;
