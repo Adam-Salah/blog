@@ -1,12 +1,9 @@
 import type { NextConfig } from 'next';
-import createMDX from '@next/mdx';
-
-// Merge MDX config with Next.js config
 
 const nextConfig: NextConfig = {
     /* config options here */
     output: 'export',
-    pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+    pageExtensions: ['js', 'jsx', 'md', 'ts', 'tsx'],
     images: {
         loader: 'custom',
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -23,9 +20,3 @@ const nextConfig: NextConfig = {
         nextImageExportOptimizer_remoteImageCacheTTL: '0',
     },
 };
-
-const withMDX = createMDX({
-    // Add markdown plugins here, as desired
-});
-
-export default withMDX(nextConfig);
