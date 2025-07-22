@@ -20,3 +20,5 @@ const nextConfig: NextConfig = {
         nextImageExportOptimizer_remoteImageCacheTTL: '0',
     },
 };
+
+export default nextConfig;

@@ -4,6 +4,6 @@ export const projects = [
         "name": "transit-map",
         "src": "/resources/images/projects/transit_map_card_thumbnail.png",
         "alt": "transit map project",
-        "href": "/projects/transit-map",
+        "href": "projects/transit-map",
     },
 ]
