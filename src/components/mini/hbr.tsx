@@ -1,5 +1,3 @@
-'use client';
-
 export default function Hbr(props: { size: number }) {
     return (
         <div>
