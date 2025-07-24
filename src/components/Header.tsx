@@ -3,7 +3,7 @@
 import { LanguageContext } from '@/global/LanguageContext';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 export default function Header() {
     const language = useContext(LanguageContext);
