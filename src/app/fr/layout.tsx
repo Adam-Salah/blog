@@ -1,7 +1,7 @@
 'use client'
 
 import '@/app/globals.css';
-import Header from '@/components/Header-fr';
+import Header from '@/components/Header';
 import { LanguageContext } from '@/global/LanguageContext';
 
 export default function RootLayout({
@@ -10,7 +10,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <LanguageContext.Provider value='/fr'>
+        <LanguageContext.Provider value='fr'>
             <Header />
             <div className='flex justify-center items-center'>
                 <div

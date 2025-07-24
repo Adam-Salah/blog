@@ -1,15 +1,19 @@
 'use client'
 
+import { LanguageContext } from '@/global/LanguageContext';
 import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 export default function NotFound() {
+    const language = useContext(LanguageContext);
     useEffect(() => {
-        switch (window.location.pathname.substring(0, 3)) {
-            case '/fr':
+        switch (language) {
+            case 'fr':
                 redirect('/fr');
+            case 'en':
+                redirect('/en');
             default:
-                redirect('/');
+                redirect('/en');
         }
     }, []);
 }

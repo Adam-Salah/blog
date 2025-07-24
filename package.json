@@ -1,12 +1,11 @@
 {
   "name": "blog",
   "version": "0.1.0",
-  "homepage": "https://adam-salah.github.io/",
+  "homepage": "garutako.com",
   "private": true,
   "scripts": {
     "dev": "next dev && next-image-export-optimizer --turbopack",
     "build": "next build && next-image-export-optimizer",
-    "deploy": "npm run build && touch ./out/.nojekyll && gh-pages -d out -t",
     "start": "npx serve@latest out",
     "lint": "next lint"
   },

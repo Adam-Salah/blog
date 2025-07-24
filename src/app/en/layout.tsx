@@ -10,7 +10,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <LanguageContext.Provider value=''>
+        <LanguageContext.Provider value='en'>
             <Header />
             <div className='flex justify-center items-center'>
                 <div

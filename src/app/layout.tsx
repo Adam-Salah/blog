@@ -17,11 +17,14 @@ export default function RootLayout({
 }>) {
     return (
         <html>
+            <head>
+                <title>garutako.com</title>
+            </head>
             <body className={baseFont.className}>
-                <LanguageContext.Provider value=' '>
-                {children}
+                <LanguageContext.Provider value='en'>
+                    {children}
                 </LanguageContext.Provider>
-                </body>
+            </body>
         </html>
     );
 }

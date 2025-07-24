@@ -7,6 +7,8 @@ const mono = Major_Mono_Display({
     subsets: ['latin'],
 });
 
+const fps = 120;
+
 export default function Banner(props: { name: string; speed: number; height: number }) {
     const [nameBanner, setNameBanner] = useState<string[]>([]);
     const [letterTranslation, setLetterTranslation] = useState<number>(0);
@@ -27,37 +29,31 @@ export default function Banner(props: { name: string; speed: number; height: num
     useEffect(() => {
         let animationFrameId: number;
         let timeAtFrame = Date.now();
+        let letterTranslationTimer = 0;
+        let highlightTranslationTimer = 0;
         function frameOperations() {
-            setLetterTranslation(0);
+            // setLetterTranslation(0);
             const dt = (Date.now() - timeAtFrame) / 1000;
-            if (dt > 1 / props.speed) {
-                nameBanner.unshift(nameBanner.pop()!);
-                setNameBanner(nameBanner);
+            letterTranslationTimer += dt;
+            highlightTranslationTimer += dt;
+            if (dt > 1 / fps) {
+                if (letterTranslationTimer > 1 / props.speed) {
+                    nameBanner.unshift(nameBanner.pop()!);
+                    setNameBanner(nameBanner);
+                    letterTranslationTimer = 0;
+                }
+                if (highlightTranslationTimer > (1 / props.speed) * props.height) {
+                    highlightTranslationTimer = 0;
+                }
                 timeAtFrame = Date.now();
-            } else {
-                setLetterTranslation(lerp(0, 100, dt * props.speed));
+                setLetterTranslation(lerp(0, 100, letterTranslationTimer * props.speed));
+                setLineHighlight(lerp(0, 100, (highlightTranslationTimer * props.speed) / props.height) - (0.5 * 100) / props.height);
             }
             animationFrameId = requestAnimationFrame(frameOperations);
         }
         animationFrameId = requestAnimationFrame(frameOperations);
         return () => cancelAnimationFrame(animationFrameId);
     }, [nameBanner]);
-
-    useEffect(() => {
-        let animationFrameId: number;
-        let timeAtFrame = Date.now();
-        function frameOperations() {
-            const dt = (Date.now() - timeAtFrame) / 1000;
-            if (dt > (1 / props.speed) * props.height) {
-                timeAtFrame = Date.now();
-            } else {
-                setLineHighlight(lerp(0, 100, (dt * props.speed) / props.height) - (0.5 * 100) / props.height);
-            }
-            animationFrameId = requestAnimationFrame(frameOperations);
-        }
-        animationFrameId = requestAnimationFrame(frameOperations);
-        return () => cancelAnimationFrame(animationFrameId);
-    }, []);
 
     return (
         <>
