@@ -1,25 +1,8 @@
 import A from '@/components/mini/A';
-import ExportedImage from 'next-image-export-optimizer';
 
 export default function Content() {
     return (
         <div>
-            <h1>Transit Map</h1>
-            <h2>By me</h2>
-            <br />
-            <div className='flex mx-auto overflow-hidden object-cover px-10'>
-                <div className='relative h-70 aspect-video w-full'>
-                    <ExportedImage
-                        src={'/resources/images/projects/transit_map_card_thumbnail.png'}
-                        alt={
-                            'Image of the city of Montréal. Many dots are scattered along the roads. A widget on the right displays information on a selected dot'
-                        }
-                        className='object-cover mx-auto'
-                        fill
-                    />
-                </div>
-            </div>
-            <br />
             <p>
                 This app displays a real-time map of the Montréal Transport Society (STM) vehicle fleet. It was my first{' '}
                 <A href='https://nextjs.org/'>Next.js</A> project and my introduction to <A href='https://react.dev/'>React</A> state management.
