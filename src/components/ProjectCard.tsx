@@ -1,8 +1,8 @@
-import { Project } from '@/interfaces';
 import Link from 'next/link';
 import ExportedImage from 'next-image-export-optimizer';
 import { useContext } from 'react';
 import { LanguageContext } from '@/global/LanguageContext';
+import { Project } from '@/data/projects';
 
 export default function ProjectCard(props: ProjectCardProps) {
     const language = useContext(LanguageContext);
