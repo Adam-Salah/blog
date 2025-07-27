@@ -13,17 +13,6 @@ export default function Network() {
     const fps = isMobile ? 60 : 240;
     const speed = 25;
 
-    const [backgroundColor, setBackgroundColor] = useState<string>();
-    const [foregroundColor, setForegroundColor] = useState<string>();
-
-    useEffect(() => {
-            const style = window.getComputedStyle(document.body);
-            // setBackgroundColor(style.getPropertyValue('--background'));
-            // setForegroundColor(style.getPropertyValue('--foreground'));
-            setBackgroundColor('#171717')
-            setForegroundColor('#f4f4f4')
-    }, [])
-
     const [numPoints, setNumPoints] = useState<number>(100);
     const [points] = useState<Point[]>([]);
 

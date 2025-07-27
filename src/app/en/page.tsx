@@ -2,7 +2,6 @@
 
 import Banner from '@/components/Banner';
 import Hbr from '@/components/mini/Hbr';
-import Network from '@/components/Network';
 
 export default function Page() {
     return (
