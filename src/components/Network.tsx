@@ -18,8 +18,10 @@ export default function Network() {
 
     useEffect(() => {
             const style = window.getComputedStyle(document.body);
-            setBackgroundColor(style.getPropertyValue('--background'));
-            setForegroundColor(style.getPropertyValue('--foreground'));
+            // setBackgroundColor(style.getPropertyValue('--background'));
+            // setForegroundColor(style.getPropertyValue('--foreground'));
+            setBackgroundColor('#171717')
+            setForegroundColor('#f4f4f4')
     }, [])
 
     const [numPoints, setNumPoints] = useState<number>(100);
@@ -60,10 +62,10 @@ export default function Network() {
     const render = () => {
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext('2d')!;
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = '#171717';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = foregroundColor || '000000';
+        ctx.fillStyle = '#f4f4f4';
         for (let i = 0; i < points.length; i++) {
             const p = points[i];
             ctx.beginPath();
@@ -91,7 +93,7 @@ export default function Network() {
                     if (dist > prox * prox) {
                         alpha = 0.2 * (1 - (Math.sqrt(dist) - prox) / fade);
                     }
-                    ctx.strokeStyle = 'rgba(0,0,0,' + alpha + ')';
+                    ctx.strokeStyle = 'rgba(255,255,255,' + alpha + ')';
 
                     let x1 = p1.x,
                         y1 = p1.y,
@@ -165,14 +167,14 @@ export default function Network() {
             proximity.current *= beforeAfterWidthRatio;
             previousWindowWidthRef.current = window.innerWidth;
 
-            setNumPoints(window.innerHeight / 4);
+            setNumPoints(window.innerHeight / 5);
 
             canvas.height = 0;
             canvas.height = document.documentElement.scrollHeight - document.getElementById('header')!.offsetHeight - 1;
             const ctx = canvas.getContext('2d');
             if (ctx) {
-                ctx.fillStyle = backgroundColor || '#ffffff';
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#171717';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
         };
         resize();

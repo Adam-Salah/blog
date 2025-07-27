@@ -58,20 +58,22 @@ export default function Banner(props: { name: string; speed: number; height: num
     return (
         <>
             <div className={mono.className + ' flex justify-center'}>
-                <div className='relative text-[3em] sm:text-[5em] max-w-[5ch] leading-none inline-block rounded-full overflow-hidden select-none'>
-                    <div
-                        className='-z-10 absolute bg-(--foreground) w-full'
-                        style={{ height: `${100 / props.height}%`, top: `${lineHighlight}%` }}
-                    ></div>
-                    <div
-                        className='-z-10 absolute bg-(--foreground) w-full'
-                        style={{ height: `${100 / props.height}%`, top: `${lineHighlight! - 100}%` }}
-                    ></div>
-                    <div
-                        className='-z-10 absolute bg-(--foreground) w-full'
-                        style={{ height: `${100 / props.height}%`, top: `${lineHighlight! + 100}%` }}
-                    ></div>
-                    <div className='relative'>
+                <div className='relative text-[3em] sm:text-[5em] max-w-[5ch] leading-none inline-block rounded-full overflow-hidden select-none bg-(--background)'>
+                    <div>
+                        <div
+                            className='z-10 absolute bg-(--foreground) w-full'
+                            style={{ height: `${100 / props.height}%`, top: `${lineHighlight}%` }}
+                        ></div>
+                        <div
+                            className='z-10 absolute bg-(--foreground) w-full'
+                            style={{ height: `${100 / props.height}%`, top: `${lineHighlight! - 100}%` }}
+                        ></div>
+                        <div
+                            className='z-10 absolute bg-(--foreground) w-full'
+                            style={{ height: `${100 / props.height}%`, top: `${lineHighlight! + 100}%` }}
+                        ></div>
+                    </div>
+                    <div className='relative z-20'>
                         <div className='absolute'>
                             {nameBanner.map((name, i) => (
                                 <div key={i} className='overflow-hidden'>

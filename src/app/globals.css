@@ -3,7 +3,7 @@
 :root {
     font-size: 1.2rem;
     scrollbar-width: thin;
-    --background: #ffffff;
+    --background: #f4f4f4;
     --foreground: #171717;
     /* --flavor: #2c19ff; */
     --flavor: var(--foreground)
@@ -12,8 +12,8 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #000000;
-        --foreground: #ffffff;
+        --background: #171717;
+        --foreground: #f4f4f4;
         /* --flavor: #4af626; */
     }
 }
@@ -79,7 +79,6 @@ h5 {
 h6 {
   font-size: 0.67em;
 }
-
 
 a {
   font-weight:bolder;
