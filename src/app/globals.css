@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 :root {
-    font-size: 1.2rem;
+  font-size: 1.2em;
     scrollbar-width: thin;
     --background: #f4f4f4;
     --foreground: #171717;
@@ -16,6 +16,10 @@
         --foreground: #f4f4f4;
         /* --flavor: #4af626; */
     }
+}
+
+@media screen {
+  
 }
 
 /* Fix overflow */

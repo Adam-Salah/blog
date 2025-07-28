@@ -2,7 +2,6 @@
 
 import '@/app/globals.css';
 import Header from '@/components/Header';
-import Network from '@/components/Network';
 import { LanguageContext } from '@/global/LanguageContext';
 
 export default function RootLayout({
@@ -13,7 +12,6 @@ export default function RootLayout({
     return (
         <LanguageContext.Provider value='en'>
             <Header />
-            <Network />
             <div className='flex justify-center items-center'>
                 <div
                     id='page-container'

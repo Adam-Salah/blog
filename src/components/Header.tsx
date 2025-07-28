@@ -18,11 +18,11 @@ export default function Header() {
                 <Link href={'/' + language + '/projects'}>
                     <div className='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>Projects</div>
                 </Link>
-                {/* <Link href={'/blog'}>
-                    <div className='pl-3 sm:pr-3 py-2 sm:py-5 cursor-pointer'>
+                <Link href={'/' + language + '/blog'}>
+                    <div className='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>
                         Blog
                     </div>
-                </Link> */}
+                </Link>
                 {/* <Link href={'/about'}>
                     <div className='pl-3 sm:pr-3 py-2 sm:py-5 cursor-pointer'>
                         About

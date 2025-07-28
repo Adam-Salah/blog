@@ -1,21 +1,21 @@
 import dynamic from 'next/dynamic';
-import { Project, projects } from '@/data/projects';
+import { Post, posts } from '@/data/posts';
 import ExportedImage from 'next-image-export-optimizer';
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const Content = dynamic(() => import(`@/content/en/projects/${slug}.tsx`));
-    const project = projects.filter((project) => {
-        if (project.name === slug) return project;
+    const Content = dynamic(() => import(`@/content/en/posts/${slug}.tsx`));
+    const post = posts.filter((post) => {
+        if (post.name === slug) return post;
     })[0];
     return (
         <div>
-            <h1>{project.title_en}</h1>
-            <h2>{project.author_en}</h2>
+            <p>{post.date}</p>
+            <h1>{post.title_en}</h1>
             <br />
             <div className='flex mx-auto overflow-hidden object-cover sm:px-10'>
                 <div className='relative h-70 aspect-video w-full'>
-                    <ExportedImage src={project.src} alt={project.alt} className='object-cover mx-auto' fill />
+                    <ExportedImage src={post.src} alt={post.alt} className='object-cover mx-auto' fill />
                 </div>
             </div>
             <br />
@@ -25,8 +25,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 }
 
 export async function generateStaticParams() {
-    return projects.map((project: Project) => ({
-        slug: project.name,
+    return posts.map((post: Post) => ({
+        slug: post.name,
     }));
 }
 
