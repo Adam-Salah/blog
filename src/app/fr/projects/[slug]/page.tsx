@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         if (project.name === slug) return project;
     })[0];
     return (
-        <div>
+        <div className='mx-auto max-w-200'>
             <h1>{project.title_fr}</h1>
             <h2>{project.author_fr}</h2>
             <br />

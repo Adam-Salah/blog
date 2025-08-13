@@ -5,7 +5,7 @@ import PostCard from "./PostCard";
 
 export default function PostCardContainer() {
     return (
-        <div className="mt-5 grid grid-cols-1 auto-cols-max gap-15">
+        <div className="mt-5 gap-10 mx-auto max-w-200">
             {
                 posts?.map((post) => {
                     return <PostCard key={post.id} post={post}></PostCard>

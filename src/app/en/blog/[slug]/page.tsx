@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         if (post.name === slug) return post;
     })[0];
     return (
-        <div>
+        <div className='mx-auto max-w-200'>
             <p>{post.date}</p>
             <h1>{post.title_en}</h1>
             <br />

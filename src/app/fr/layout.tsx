@@ -15,7 +15,7 @@ export default function RootLayout({
             <div className='flex justify-center items-center'>
                 <div
                     id='page-container'
-                    className='w-full max-w-[960px] ml-3 mr-3 pt-5 pb-15 pl-[5%] pr-[5%]'
+                    className='w-full ml-3 mr-3 pt-5 pb-15 pl-[15%] pr-[15%]'
                 >
                     {children}
                 </div>

@@ -8,7 +8,7 @@ export default function ProjectCard(props: ProjectCardProps) {
     const language = useContext(LanguageContext);
     return (
         <Link href={'/' + language + '/projects/' + props.project.name} >
-            <div className='p-[5%] relative w-full h-full aspect-square outline-solid outline-2 outline-(--flavor) overflow-hidden hover:scale-103 cursor-pointer'>
+            <div className='relative h-auto max-w-full aspect-square overflow-hidden cursor-pointer'>
                 <div className='relative h-full'>
                     <ExportedImage src={props.project.src} alt={props.project.alt} className='object-cover' fill />
                 </div>
