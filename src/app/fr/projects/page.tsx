@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import ProjectCardContainer from "@/components/ProjectCardContainer";
+import ProjectCardContainer from '@/components/ProjectCardContainer';
 
 export default function Page() {
     return (
-        <>
-            <ProjectCardContainer></ProjectCardContainer>
-        </>
-    )
+        <div className='mx-auto max-w-200'>
+            <ProjectCardContainer />
+        </div>
+    );
 }

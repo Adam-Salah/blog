@@ -10,7 +10,7 @@ export default function ProjectCard(props: ProjectCardProps) {
         <Link href={'/' + language + '/projects/' + props.project.name} >
             <div className='relative h-auto max-w-full aspect-square overflow-hidden cursor-pointer'>
                 <div className='relative h-full'>
-                    <ExportedImage src={props.project.src} alt={props.project.alt} className='object-cover' fill />
+                    <ExportedImage src={props.project.card_src} alt={props.project.alt} className='object-cover' fill />
                 </div>
             </div>
         </Link>

@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <br />
             <div className='flex mx-auto overflow-hidden object-cover sm:px-10'>
                 <div className='relative h-70 aspect-video w-full'>
-                    <ExportedImage src={project.src} alt={project.alt} className='object-cover mx-auto' fill />
+                    <ExportedImage src={project.banner_src} alt={project.alt} className='object-cover mx-auto' fill />
                 </div>
             </div>
             <br />
