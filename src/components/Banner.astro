@@ -1,0 +1,80 @@
+<script>
+    const fps = 240;
+
+    let previousTime: number;
+    requestAnimationFrame(loop);
+
+    function loop(now: number) {
+        requestAnimationFrame(loop);
+
+        if (!previousTime) {
+            previousTime = now;
+        }
+        let dt = now - previousTime;
+        if (dt > 1000 / fps) {
+            animate(dt / 1000);
+            previousTime = now;
+        }
+    }
+
+    const name = document.getElementById('name')!;
+    const nameBlend = document.getElementById('name-blend')!;
+    const topLine = document.getElementById('top-line')!;
+    const bottomLine = document.getElementById('bottom-line')!;
+
+    let timeElapsed = 0;
+    function animate(dt: number) {
+        timeElapsed += dt;
+        timeElapsed = timeElapsed % 4;
+
+        //Horizontal movement
+        const xOffset = timeElapsed + 0.5;
+        name.style.transform = `translate(-${xOffset}ch)`;
+        nameBlend.style.transform = `translate(-${xOffset}ch)`;
+
+        //Vertical movement
+        const yOffset = timeElapsed * 25;
+        topLine.style.top = `${yOffset - 100}%`;
+        bottomLine.style.top = `${yOffset}%`;
+
+        //Vertical blending
+        nameBlend.style.clipPath = `polygon(
+                                0 ${yOffset! - 100}%, 
+                                200%  ${yOffset! - 100}%, 
+                                200% ${yOffset! - 75}%, 
+                                0 ${yOffset! - 75}%,
+                                0 ${yOffset}%, 
+                                200%  ${yOffset}%, 
+                                200% ${yOffset! + 25}%, 
+                                0 ${yOffset! + 25}%,
+                                0 ${yOffset! + 100}%, 
+                                200%  ${yOffset! + 100}%, 
+                                200% ${yOffset! + 125}%, 
+                                0 ${yOffset! + 125}%
+                                )`;
+    }
+</script>
+<div class='flex justify-center'>
+    <div
+        class='relative text-[3em] sm:text-[5em] max-w-[5ch] leading-none rounded-full overflow-hidden select-none bg-(--background) font-banner'
+    >
+        <div class='z-10'>
+            <div class='absolute bg-(--foreground) w-full h-[25%]' id='top-line'></div>
+            <div class='absolute bg-(--foreground) w-full h-[25%]' id='bottom-line'></div>
+        </div>
+        <div class='relative'>
+            <div class='absolute' id='name'>
+                <div>ugarugarugar</div>
+                <div>rugarugaruga</div>
+                <div>arugarugarug</div>
+                <div>garugarugaru</div>
+            </div>
+            <div class='text-(--background)' id='name-blend'>
+                <div>ugarugarugar</div>
+                <div>rugarugaruga</div>
+                <div>arugarugarug</div>
+                <div>garugarugaru</div>
+            </div>
+        </div>
+    </div>
+</div>

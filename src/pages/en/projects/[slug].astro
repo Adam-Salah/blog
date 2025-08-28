@@ -1,0 +1,39 @@
+---
+import Layout from '@pages/en/layout-en.astro';
+import { Image } from 'astro:assets';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const projects = await getCollection('projectsEN');
+    return projects.map((project) => ({
+        params: {
+            slug: project.id,
+        },
+    }));
+}
+
+const { slug } = Astro.params;
+
+const project = await getEntry('projectsEN', slug);
+if (!project) {
+    throw new Error('Could not find project ' + slug);
+}
+
+const { Content } = await render(project);
+---
+
+<Layout>
+    <head>
+        <title>{project.data.title}</title>
+    </head>
+    <div class='mx-auto max-w-200'>
+        <h1>{project.data.title}</h1>
+        <h2>{project.data.author}</h2>
+        <br />
+        <div class='aspect-5/2 overflow-hidden'>
+            <Image src={project.data.image} alt={''} class='h-full w-full object-cover' />
+        </div>
+        <br />
+        <Content />
+    </div>
+</Layout>

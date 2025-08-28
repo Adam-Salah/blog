@@ -1,0 +1,29 @@
+---
+import Layout from '@pages/en/layout-en.astro';
+import { blogDateOptions } from '@src/global';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const blogURL = getRelativeLocaleUrl('en', 'blog/');
+
+const posts = await getCollection('postsEN');
+---
+
+<Layout>
+    <head>
+        <title>Blog</title>
+    </head>
+    <div class='mx-auto px-10 max-w-200'>
+        {
+            posts.map((post) => (
+                <div class='relative mx-auto overflow-hidden pb-10'>
+                    <a href={blogURL + post.id} class='text-md sm:text-lg'>
+                        <h2 class=''>{post.data.title}</h2>
+                    </a>
+                    <p class='text-xs sm:text-sm my-2'>{post.data.date.toLocaleDateString('en-CA', blogDateOptions)}</p>
+                    <p class='text-sm sm:text-md'>{post.data.description}</p>
+                </div>
+            ))
+        }
+    </div>
+</Layout>
