@@ -1,0 +1,25 @@
+---
+import Layout from '@pages/en/layout-en.astro';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const projectsURL = getRelativeLocaleUrl('en', 'projects/')
+
+const projects = await getCollection('projectsEN');
+---
+
+<Layout>
+    <head>
+        <title>Projects</title>
+    </head>
+    <div class='mx-auto px-5 max-w-200 grid grid-cols-2 gap-5'>
+        {
+            projects.map((project) => (
+                <a href={projectsURL + project.id} class='aspect-square overflow-hidden'>
+                    <Image src={project.data.thumbnail} alt={''} class='h-full w-full object-cover' />
+                </a>
+            ))
+        }
+    </div>
+</Layout>

@@ -1,0 +1,39 @@
+---
+import Layout from '@pages/fr/layout-fr.astro';
+import { blogDateOptions } from '@src/global';
+import { Image } from 'astro:assets';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('postsFR');
+    return posts.map((post) => ({
+        params: {
+            slug: post.id,
+        },
+    }));
+}
+
+const { slug } = Astro.params;
+
+const post = await getEntry('postsFR', slug);
+if (!post) {
+    throw new Error('Could not find blog post ' + slug);
+}
+const { Content } = await render(post);
+---
+
+<Layout>
+    <head>
+        <title>{post.data.title}</title>
+    </head>
+    <div class='mx-auto max-w-200'>
+        <p>{post.data.date.toLocaleDateString('fr-CA', blogDateOptions)}</p>
+        <h1>{post.data.title}</h1>
+        <br />
+        <div class='aspect-5/2 overflow-hidden'>
+            <Image src={post.data.image} alt={''} class='h-full w-full object-cover' />
+        </div>
+        <br />
+        <Content />
+    </div>
+</Layout>
