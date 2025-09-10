@@ -1,10 +1,14 @@
 # build output
 dist/
+
 # generated types
 .astro/
 
 # dependencies
 node_modules/
+
+# sonda
+.sonda/
 
 # logs
 npm-debug.log*
