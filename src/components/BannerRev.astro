@@ -23,9 +23,12 @@
 
     const nameDiv = document.getElementById("name")!;
     const nameLine = (name + " ").repeat(25);
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 50; i++) {
         const nameParagraph = document.createElement("p");
         nameParagraph.innerHTML = nameLine;
+        nameParagraph.style.backgroundColor = 'var(--background)'
+        nameParagraph.style.margin = '-5px';
+        nameParagraph.style.wordSpacing = '-50%';
         nameDiv.appendChild(nameParagraph);
 
         if (i % 2 == 0) {
@@ -40,7 +43,7 @@
     let timeElapsed = 0;
     function animate(dt: number) {
         timeElapsed += dt;
-        timeElapsed = timeElapsed % 5;
+        timeElapsed = timeElapsed % 4.5;
 
         //Horizontal line movement
         const xOffset = timeElapsed;
@@ -60,7 +63,7 @@
 </script>
 <div class="flex justify-center">
     <div
-        class="fixed w-full h-[100vh] text-[3em] sm:text-[5em] overflow-hidden select-none bg-(--background) font-banner font-bold"
+        class="fixed w-full h-[100vh] text-[3em] sm:text-[5em] overflow-hidden select-none font-banner font-bold"
         id="banner-container"
     >
         <div

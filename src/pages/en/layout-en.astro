@@ -12,7 +12,7 @@ const pathName = Astro.url.pathname;
         <meta name='viewport' content='width=device-width' />
     </head>
     <body>
-        <div class='header sticky z-[100] top-[0] flex p-5 bg-(--background) text-lg' id='header'>
+        <div class='header fixed w-full z-[100] top-[0] flex p-5 bg-(--background) text-lg hidden' id='header'>
             <a href={'/en'} class='cursor-pointer'>
                 <div class='header-logo m-auto sm:py-5 sm:px-5 text-[1.5em]'>Garutako</div>
             </a>

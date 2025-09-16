@@ -1,126 +1,139 @@
 ---
-import Layout from "@pages/en/layout-en.astro";
-import Banner from "@src/components/BannerRev.astro";
+import Layout from '@pages/en/layout-en.astro';
+const pathName = Astro.url.pathname;
 ---
 
 <script>
-    const header = document.getElementById("header")!;
-    header.style.display = "none";
+    import { animate, hover, type AnimationPlaybackControlsWithThen, type AnimationSequence, type ElementOrSelector } from 'motion';
+
+    const welcomeCyan = document.getElementById('welcome-c')!;
+    const welcomeMagenta = document.getElementById('welcome-m')!;
+    const welcomeYellow = document.getElementById('welcome-y')!;
+    const welcomeKey = document.getElementById('welcome-k')!;
+    const backgroundCyan = document.getElementById('background-c')!;
+    const backgroundMagenta = document.getElementById('background-m')!;
+    const backgroundYellow = document.getElementById('background-y')!;
+    const titleCyan = document.getElementById('title-c')!;
+    const titleCyan2 = document.getElementById('title-c2')!;
+    const titleMagenta = document.getElementById('title-m')!;
+    const titleMagenta2 = document.getElementById('title-m2')!;
+    const titleYellow = document.getElementById('title-y')!;
+    const titleYellow2 = document.getElementById('title-y2')!;
+    const startButton = document.getElementById('start-button')!;
+
+    //Populate text
+    titleCyan.innerHTML = 'Projects '.repeat(50) + '&nbsp;';
+    titleCyan2.innerHTML = 'Projects '.repeat(50) + '&nbsp;';
+    titleMagenta.innerHTML = 'Blog '.repeat(50) + '&nbsp;';
+    titleMagenta2.innerHTML = 'Blog '.repeat(50) + '&nbsp;';
+    titleYellow.innerHTML = 'About '.repeat(50) + '&nbsp;';
+    titleYellow2.innerHTML = 'About '.repeat(50) + '&nbsp;';
+
+    //Start animations
+    const sequence: AnimationSequence = [
+        //Hide start button
+        [startButton, { opacity: 0 }, { duration: 0.2 }],
+        [startButton, { display: 'none' }, { at: 0.2 }],
+        //Show welcome text
+        [welcomeCyan, { top: ['50%', '15%'], opacity: ['150%', '0%'], display: 'block' }, { ease: 'circOut', duration: 0.5, at: 0.0 }],
+        [welcomeMagenta, { opacity: ['150%', '0%'], display: 'block' }, { ease: 'circOut', duration: 0.5, at: 0.0 }],
+        [welcomeYellow, { top: ['50%', '85%'], opacity: ['150%', '0%'], display: 'block' }, { ease: 'circOut', duration: 0.5, at: 0.0 }],
+        //Fade out welcome text
+        [[welcomeCyan, welcomeMagenta, welcomeYellow], { opacity: ['150%', '0%'] }, { ease: 'easeIn', duration: 0.5, at: 0.4 }],
+        //Slide background in
+        [backgroundCyan, { left: ['-100%', '0%'], display: 'block' }, { ease: 'easeOut', duration: 0.8, at: 0.3 }],
+        [backgroundMagenta, { left: ['100%', '0%'], display: 'block' }, { ease: 'easeOut', duration: 0.8, at: 0.3 }],
+        [backgroundYellow, { left: ['-100%', '0%'], display: 'block' }, { ease: 'easeOut', duration: 0.8, at: 0.3 }],
+        //Hide welcome text
+        [[welcomeCyan, welcomeMagenta, welcomeYellow], { display: 'none' }, { at: 0.5 }],
+        //Show titles
+        [[titleCyan, titleCyan2, titleMagenta, titleMagenta2, titleYellow, titleYellow2], { display: 'block' }, { at: 0.3 }],
+    ];
+
+    //Mouse position
+    window.addEventListener('mousemove', () => {
+        
+    })
+
+    //Start button
+    startButton.addEventListener(
+        'click',
+        () => {
+            welcomeKey.style.display = 'none';
+            const animation = animate(sequence);
+
+            //Animate titles
+            const animTitleCyan = animate([titleCyan], { translateX: ['0%', '100%'] }, { duration: 200, repeat: Infinity, ease: 'linear' });
+            const animTitleCyan2 = animate(titleCyan2, { translateX: ['-100%', '0%'] }, { duration: 200, repeat: Infinity, ease: 'linear' });
+            const animTitleMagenta = animate([titleMagenta], { translateX: ['100%', '0%'] }, { duration: 120, repeat: Infinity, ease: 'linear' });
+            const animTitleMagenta2 = animate(titleMagenta2, { translateX: ['0%', '-100%'] }, { duration: 120, repeat: Infinity, ease: 'linear' });
+            const animTitleYellow = animate([titleYellow], { translateX: ['0%', '100%'] }, { duration: 150, repeat: Infinity, ease: 'linear' });
+            const animTitleYellow2 = animate(titleYellow2, { translateX: ['-100%', '0%'] }, { duration: 150, repeat: Infinity, ease: 'linear' });
+
+            const hoverFunc = (anims: [AnimationPlaybackControlsWithThen, AnimationPlaybackControlsWithThen]) => {
+                return (element: Element) => {
+                    anims[0].pause();
+                    anims[1].pause();
+                    const animation = animate(element, { scale: ['100%', '103%'], zIndex: [0, 100] }, { duration: 0.1 });
+                    return () => {
+                        animation.stop();
+                        anims[0].play();
+                        anims[1].play();
+                        animate([[element, { scale: ['103%', '100%'] }, { duration: 0.1 }]]);
+                        animate(100, 0, {
+                            onUpdate: (latest) => (document.getElementById(element.id)!.style.zIndex = latest.toString()),
+                            duration: 0.02,
+                        });
+                    };
+                };
+            };
+
+            //Wait for animations to be done to detect hover
+            animation.then(() => {
+                window.addEventListener(
+                    'pointermove',
+                    () => {
+                        //Animate hovers
+                        hover(backgroundCyan, hoverFunc([animTitleCyan, animTitleCyan2]));
+                        hover(backgroundMagenta, hoverFunc([animTitleMagenta, animTitleMagenta2]));
+                        hover(backgroundYellow, hoverFunc([animTitleYellow, animTitleYellow2]));
+                    },
+                    { once: true }
+                );
+            });
+        },
+        { once: true }
+    );
 </script>
 <Layout>
     <head>
         <title>Garutako</title>
     </head>
-    <Banner />
     <div>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
-        suscipit quod fuga amet aut provident. Esse vel perferendis nemo
-        pariatur asperiores nesciunt ut, eveniet, commodi soluta nulla sit
-        obcaecati eaque inventore error. Beatae, repellat voluptate? Ratione
-        consequatur voluptatem provident sit culpa! Mollitia odit iste
-        laudantium dicta eaque totam autem laborum molestiae error sapiente
-        quae, aliquid dolor excepturi quos cum? Sint consequuntur eveniet
-        dolorem eligendi deserunt nisi soluta! Ratione laborum perferendis
-        voluptate ipsam neque tempora iure beatae reiciendis distinctio
-        mollitia, obcaecati quia fuga, vero, maiores nihil consequuntur dicta
-        commodi? Nobis enim similique qui cupiditate blanditiis aliquam. Atque
-        impedit in non sapiente quis, sint natus optio laborum molestiae
-        excepturi quibusdam provident corporis deserunt veritatis nulla!
-        Laudantium numquam cupiditate perferendis temporibus facilis tempora
-        sequi at quasi corporis placeat minus repellat dicta error, hic sit
-        asperiores qui consequatur eum provident? Ratione, expedita ipsum hic
-        alias beatae nisi veniam nulla officia ea, nobis sunt doloremque cumque!
-        Harum, consequuntur doloribus, nam animi esse repudiandae voluptates,
-        maxime et modi aperiam quas consequatur expedita quod eum similique
-        libero molestiae quia totam? Debitis accusamus consequatur sit earum
-        laborum ad eos dolores saepe quod porro fuga cum perspiciatis dicta ut
-        eaque laudantium, natus animi magni distinctio aperiam, voluptatibus
-        adipisci fugit dolorem obcaecati! Deleniti at harum magni hic ad quos.
-        Libero iusto reprehenderit molestias consequuntur a rem obcaecati illum,
-        ratione, explicabo nulla quo soluta, veniam sint beatae autem. Dolorum
-        ullam expedita error facere possimus in dolores quisquam explicabo unde,
-        nesciunt a inventore blanditiis quaerat. Eaque aut aliquid eveniet in
-        maiores quas quia nisi rem et molestiae, vero est minus. Ad accusantium
-        ab sapiente velit molestias consequuntur odit rerum, optio officiis
-        animi tenetur explicabo quis incidunt. Quasi totam a sit modi dicta,
-        impedit ipsa laudantium. Consequuntur incidunt laboriosam omnis officia.
-        Reiciendis, incidunt voluptates enim quod sapiente culpa deleniti quia
-        molestiae nulla odio. Hic, aspernatur. Sit quidem fuga ea quis officia
-        natus earum repudiandae iure quam illum dolorum rem delectus quibusdam
-        voluptas excepturi recusandae dolorem ab perspiciatis maiores
-        praesentium, ipsa quae culpa distinctio! Amet dolore dolores aperiam
-        corporis molestias, voluptatum ullam adipisci omnis totam optio
-        asperiores laborum sit quibusdam ducimus quod fuga sapiente suscipit
-        debitis modi. Incidunt quisquam perspiciatis, ipsum nemo sint maiores
-        eveniet odio assumenda ex neque sapiente iure officiis iusto quia ut
-        voluptate nostrum quae qui, architecto excepturi voluptatem adipisci.
-        Quibusdam debitis magnam voluptatem, quidem reiciendis veritatis
-        asperiores. Mollitia voluptate obcaecati, quod sed tempore reiciendis
-        voluptates necessitatibus ratione iste quasi, provident, quos et minima
-        magnam vero! Amet itaque sed doloribus atque repellat eaque ducimus est,
-        cumque tenetur asperiores, quisquam minima nulla accusamus deserunt
-        praesentium perspiciatis debitis vitae! Laudantium aut nulla eligendi
-        eum dolorem harum illum delectus modi quisquam, sit reiciendis itaque
-        odit. Dolores accusamus dicta reiciendis obcaecati ab ex porro, soluta
-        fugit sapiente, esse quaerat ea vel tempora nostrum ipsa velit minima
-        odit dolorum adipisci, quae sequi mollitia. Adipisci debitis, et quo
-        rerum harum hic deserunt minima similique itaque inventore aliquid
-        ratione soluta ab quasi cupiditate aliquam, repudiandae atque corrupti
-        explicabo nihil ex. Officiis, totam, magnam obcaecati enim vel debitis
-        quos dignissimos eligendi provident, unde ea odit quam fugiat est rem?
-        Vitae impedit magnam saepe iusto, iste aspernatur nam pariatur cum
-        accusantium laudantium, soluta tenetur officiis! Temporibus et ullam ut
-        ducimus, minus sapiente dolorem quibusdam, placeat deserunt excepturi ad
-        saepe inventore! Quam ratione quibusdam nihil eveniet quod facilis,
-        laborum eligendi quaerat autem maiores velit at commodi assumenda fugit
-        vel deleniti recusandae magnam ex amet tempore, numquam laudantium ullam
-        asperiores! Cupiditate, ducimus dolores sapiente sed voluptates enim
-        repellat recusandae. Dolor, exercitationem! Veniam enim aperiam qui
-        molestiae non, aut officiis hic quia voluptatum eveniet ullam suscipit
-        distinctio deleniti cupiditate quasi aliquid, dolor assumenda eos? Alias
-        nemo ipsum numquam veniam incidunt eos autem quod sunt quidem? Veniam
-        quam qui quia officiis alias eius, perferendis necessitatibus eaque
-        magni ipsam vitae in facere aut voluptas magnam obcaecati? Optio,
-        quaerat? Possimus perspiciatis veritatis, voluptatibus odio earum, ut
-        nesciunt vero delectus optio vel maiores nostrum eaque quas ducimus
-        veniam fuga officiis consequatur natus minus dolores! Nobis rerum nam ad
-        doloribus aperiam odit error in. Magni minima quos totam. Earum sint,
-        aut, ipsa corporis atque pariatur impedit expedita distinctio velit esse
-        ea quas necessitatibus assumenda exercitationem illo dicta voluptatum,
-        eveniet magni. Accusamus deleniti laudantium iste, expedita quas
-        dignissimos dolores aliquid commodi odio nostrum animi maiores magni
-        facilis error! Numquam sint magni doloremque, veniam laboriosam,
-        repellat consectetur reprehenderit voluptatibus et voluptates officia
-        quis assumenda voluptate eius vitae ratione asperiores aut iusto dolores
-        quibusdam! Fugiat, ullam itaque a quos nostrum maxime. Minima mollitia
-        totam id dolor, excepturi molestiae suscipit ea consequatur neque, earum
-        fugiat voluptate inventore quisquam repellendus atque eius tenetur
-        debitis velit ipsa sapiente. Optio possimus quidem cumque perferendis
-        aperiam nisi obcaecati ratione est earum, reprehenderit facilis a sed
-        atque non animi! Odio reprehenderit, tempora quibusdam eius eligendi
-        necessitatibus quas dolore repellat. Dolore odio corporis sed nam
-        perferendis voluptatum in amet numquam distinctio, doloremque similique,
-        quisquam adipisci nemo, quaerat ipsam? Provident reprehenderit dolorem
-        accusamus. Officia fugit amet illum perspiciatis iure quisquam? Eligendi
-        debitis fuga at atque commodi esse ratione dicta iure veritatis
-        doloribus officia corporis optio quo tenetur amet sunt provident
-        voluptates doloremque fugiat, autem maiores iste voluptas. Similique,
-        consectetur quo beatae provident quibusdam optio id quasi animi, cumque
-        asperiores iusto in consequuntur nobis itaque voluptatum recusandae,
-        autem necessitatibus dicta pariatur illo minima? Perferendis sapiente
-        dolor incidunt. Provident, et soluta! Architecto ipsa repellendus illo,
-        pariatur nostrum voluptatum quos excepturi cupiditate dignissimos odit
-        quibusdam recusandae voluptas itaque a voluptatibus delectus tenetur
-        nobis adipisci mollitia eaque earum soluta tempore assumenda quia?
-        Inventore totam, ducimus dolor rem, impedit unde et quam reiciendis
-        architecto repellat rerum minima ad sed sapiente. Repellat est similique
-        tempora repudiandae beatae ut quos, veritatis officiis, eum ducimus
-        labore esse nemo eligendi nisi cum itaque explicabo tempore ex nesciunt
-        numquam facere temporibus? Accusamus quae soluta consectetur praesentium
-        expedita atque nisi similique porro assumenda architecto officiis harum
-        corrupti, quos tempore odio quidem optio pariatur enim eum rerum
-        incidunt maiores magni commodi! Voluptatibus dignissimos illo animi,
-        nulla suscipit quisquam aspernatur corporis quis vel enim doloremque
-        vero dicta error ducimus adipisci eum harum?
+        <div class='h-[100vh] w-[100vw] fixed z-10 bg-(--background)'>
+            <div class='text-2xl sm:text-5xl font-extrabold'>
+                <h1 id='welcome-c' class='hidden absolute midify opacity-100 text-(--cyan)'>Welcome</h1>
+                <h1 id='welcome-m' class='hidden absolute midify opacity-100 text-(--magenta)'>Welcome</h1>
+                <h1 id='welcome-y' class='hidden absolute midify opacity-100 text-(--yellow)'>Welcome</h1>
+                <h1 id='welcome-k' class='absolute top-[50%] midify opacity-100 text-(--key)'>Welcome</h1>
+            </div>
+            <div class='text-4xl sm:text-7xl font-bold text-(--beige)'>
+                <a href={'/en/projects'} id='background-c' class='hidden absolute w-full h-1/3 justify-center bg-(--cyan) cursor-pointer'>
+                    <h2 id='title-c' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>Projects</h2>
+                    <h2 id='title-c2' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>Projects</h2>
+                </a>
+                <a href={'/en/blog'} id='background-m' class='hidden absolute w-full top-1/3 h-1/3 bg-(--magenta) cursor-pointer'>
+                    <h2 id='title-m' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre left-[3ch]'>Blog</h2>
+                    <h2 id='title-m2' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre left-[3ch]'>Blog</h2>
+                </a>
+                <a id='background-y' class='hidden absolute w-full top-2/3 h-1/3 bg-(--yellow) cursor-pointer'>
+                    <h2 id='title-y' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>About</h2>
+                    <h2 id='title-y2' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>About</h2>
+                </a>
+            </div>
+            <div id='start-button' class='absolute midify !top-[70%] w-15 h-15 rounded-full bg-(--key) cursor-pointer'>
+                <div class='absolute midify w-5 h-5 bg-(--beige) right-tri'></div>
+            </div>
+        </div>
     </div>
 </Layout>

@@ -11,10 +11,13 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.5.1",
     "@astrojs/ts-plugin": "^1.10.4",
+    "@fontsource/golos-text": "^5.2.6",
     "@fontsource/major-mono-display": "^5.2.7",
     "@fontsource/red-hat-mono": "^5.2.6",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.13.7",
+    "locomotive-scroll": "5.0.0-beta.21",
+    "motion": "^12.23.12",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.13"
   },

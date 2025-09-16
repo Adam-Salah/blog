@@ -1,30 +1,42 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-mono: 'Red Hat Mono', monospace;
+    --font-base: 'Golos Text', sans-serif;
     --font-banner: 'Major Mono Display', monospace;
 }
 
 :root {
     font-size: 1rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-base);
     scrollbar-width: thin;
-    --background: #f4f4f4;
-    --foreground: #171717;
-    --flavor: var(--foreground);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #171717;
-        --foreground: #f4f4f4;
-    }
+    --black: #171717;
+    --white: #f4f4f4;
+    --cyan: #1b5eda;
+    --magenta: #d0255e;
+    --yellow: #e9c00c;
+    --real-cyan: #00ffff;
+    --real-magenta: #ff00ff;
+    --real-yellow: #ffff00;
+    --key: #2a2a28;
+    --beige: #f2f2e3;
+    --background: var(--beige);
+    --text: var(--key);
 }
 
 @media screen and (min-width: 640px) {
     :root {
         font-size: 1.2em;
     }
+}
+
+.midify {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.right-tri {
+    clip-path: polygon(16% 0, 16% 100%, 100% 50%);
 }
 
 html,
@@ -34,8 +46,8 @@ body {
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
+    background: var(--beige);
+    color: var(--key);
 }
 
 h1 {
