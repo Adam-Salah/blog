@@ -1,6 +1,5 @@
 ---
 import '@src/global.css';
-import '@fontsource/major-mono-display';
 const pathName = Astro.url.pathname;
 ---
 
@@ -12,11 +11,11 @@ const pathName = Astro.url.pathname;
         <meta name='viewport' content='width=device-width' />
     </head>
     <body>
-        <div class='header fixed w-full z-[100] top-[0] flex p-5 bg-(--background) text-lg hidden' id='header'>
+        <div class='header sticky z-[100] top-[0] flex px-4 py-2 mb-10 bg-(--background) text-lg' id='header'>
             <a href={'/en'} class='cursor-pointer'>
                 <div class='header-logo m-auto sm:py-5 sm:px-5 text-[1.5em]'>Garutako</div>
             </a>
-            <div class='flex flex-auto flex-wrap justify-end m-auto gap-3 text-[1.'>
+            <div class='flex flex-auto flex-wrap justify-end m-auto gap-3'>
                 <a href={'/en/projects'}>
                     <div class='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>Projects</div>
                 </a>

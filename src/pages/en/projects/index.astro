@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const projectsURL = getRelativeLocaleUrl('en', 'projects/')
+const projectsURL = getRelativeLocaleUrl('en', 'projects/');
 
 const projects = await getCollection('projectsEN');
 ---

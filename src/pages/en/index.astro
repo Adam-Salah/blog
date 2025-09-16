@@ -1,4 +1,5 @@
 ---
+import '@src/global.css';
 import Layout from '@pages/en/layout-en.astro';
 const pathName = Astro.url.pathname;
 ---
@@ -105,7 +106,6 @@ const pathName = Astro.url.pathname;
         { once: true }
     );
 </script>
-<Layout>
     <head>
         <title>Garutako</title>
     </head>
@@ -136,4 +136,3 @@ const pathName = Astro.url.pathname;
             </div>
         </div>
     </div>
-</Layout>
