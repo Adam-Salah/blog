@@ -5,16 +5,64 @@ date: 2025-07-28
 image: ../../images/welcome_site_banner.png
 ---
 
-This app displays a real-time map of the Montréal Transport Society (STM) vehicle fleet. It was my first [Next.js](https://nextjs.org/) project and my introduction to [React](https://react.dev/) state management.  
-&nbsp;  
 
-The data I used comes from the [STM's open data APIs](https://www.stm.info/en/about/developers). Since the API allows 10,000 requests/day, I set poll rate to 10 seconds. This allows me to refresh data as often as possible without passing that threshold. The app then serves that data to the clients when requested. Currently, the client sends a request every 30 seconds, but this will be altered depending on performance. I might even use a different method to serve the data.  
-&nbsp;
+Example of a cool markdown blog post
 
-The most challenging part of working with this API was figuring out how to work with the [GTFS Real-Time](https://gtfs.org/documentation/realtime/reference/) specification. Transit companies all around the world use it to structure their API data to keep everything coherent between systems. Bus position data is encoded using Protocol Buffers (or Protobuf). The data structure is laid out in a [gtfs-realtime.proto](https://gtfs.org/documentation/realtime/proto/) file. For this project I chose to use the [gtfs-realtime-bindings](https://github.com/MobilityData/gtfs-realtime-bindings) library, which provides pre-generated JavaScript/TypeScript bindings for GTFS Realtime.  
-&nbsp;
+# Aera et senior dis
 
-For the map, I used the [OpenLayers](https://openlayers.org/) library with [OpenStreetMap](https://www.openstreetmap.org) tiles as both technologies free and well documented, which is perfect for an introductory project like this one. I render marker directly on the map's canvas and use mouse events to detect interactions. The available data on a bus is displayed on a floating panel.  
-&nbsp;
+## Retexit vox Caune
 
-With the core of the application and it's basic UI finished, I am satisfied with this project. I do not have a server to host it on at the moment, so when I do I might revamp the project. I might also add more features such as displaying bus routes and schedules.
+Lorem markdownum namque. Quam cum dente supersunt **pedibus acta**, cum qui erit
+Telethusa foliis iuvenci indicat nunc corpore. Primus ac caelum me chori
+matrisque terga. Hanc **acta Atlas nec**, quis evertere ipse, fractaque candida.
+
+- Iras loci viae superasset dotale licet
+- Inpia cognovi rupibus tectaque segnior non
+- Eo foliis ignes in advena locutus
+- Et petit
+- Herbas in corque quare est
+- Solis ornate
+
+## Gyaros te videtur monstrum
+
+Dicens ille ulvae idcirco, narratibus utraque, somnus, frondator loco Libys!
+Sperat ecquid arva et! Nata manebat *tridentigero faciat*.
+
+1. Pectora illi cum genu alveus cunctaque
+2. Et victum nulla claviger hunc pellite tenes
+3. Semimari crepuscula
+
+## Mulciber eodem quotiensque opus
+
+Nomen omnes auras ingentem pellis, superis ferebat accipio, Berecyntius liceret.
+Ferenda pabula madefactaque vela. Sua palluit inter. Turaque est tutum inmunis
+passa; aversata est caede est parens tantum et cadunt ponto illis mollitaque
+utrumque expellitur.
+
+    bar = pngMotherboard.tweet_mca_file(web(intelligence, 4, e_winsock),
+            barBookmarkNosql) - blacklistDesign(3, headerThumbnailFavicon);
+    if (primary + string_xslt(textExcelFile) != -2) {
+        bus_ttl_dock.switch_rfid_tag.ppl(tiger, exif);
+        ip(pebibyte_progressive + 583913, driverSql, document_wep(4, 10));
+    }
+    memoryMinisiteOspf = 4;
+
+## Ulla nescit
+
+Rostro hederae moenibus superis; per annos demere rogarem. Auras tanto promissa
+*omnes* referam tricuspide diva regisque Iubam graves umbras stimuletur euntque!
+Iuvatis diris, opem stetit sed namque, simul populi male Phoebi. **Erit moenia**
+tenere Oresitrophos est est, et auxerunt violenta esse loqui.
+
+    market_iscsi_definition.gbps += pasteMysqlRipcording(server_video) + 5;
+    matrix_dimm += windows;
+    if (cloudMiniName * aspFileVertical) {
+        parity = mailIcann(enterpriseBarebones, flowchartBloatware, thyristor);
+    } else {
+        linkYobibyte(dvd, zettabyteMemoryPppoe.url(switch, stick, 5));
+    }
+    function.sata_memory_hibernate(mtuCable, 4);
+
+O mentis natura ossa barba, *foribus* a albet Delius, heu index Hebrum non
+moenia. Non foedumque, recursus externum enim, negarit `text` crine
+[miles](#aera-et-senior-dis), nondum *tum*.

@@ -10,30 +10,34 @@ const pathName = Astro.url.pathname;
         <link rel='icon' type='image/png' href='/favicon.png' />
         <meta name='viewport' content='width=device-width' />
     </head>
-    <body>
-        <div class='header sticky z-[100] top-[0] flex px-4 py-2 mb-10 bg-(--background) text-lg' id='header'>
-            <a href={'/en'} class='cursor-pointer'>
-                <div class='header-logo m-auto sm:py-5 sm:px-5 text-[1.5em]'>Garutako</div>
-            </a>
-            <div class='flex flex-auto flex-wrap justify-end m-auto gap-3'>
-                <a href={'/en/projects'}>
-                    <div class='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>Projects</div>
+    <body id='header'>
+        <div>
+            <div class='header sticky z-[100] top-[0] flex px-4 py-2 mb-10 bg-(--background) text-lg' id='header'>
+                <a href={'/en'} class='cursor-pointer'>
+                    <div class='header-logo m-auto sm:py-5 sm:px-5 text-[1.5em] font-bold'>Garutako</div>
                 </a>
-                <a href={'/en/blog'}>
-                    <div class='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>Blog</div>
-                </a>
-                <a href={'mailto:garutako@garutako.com'}>
-                    <div class='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>Contact</div>
-                </a>
-                <a href={'/fr' + pathName.slice(3)}>
-                    <div class='pl-3 sm:pr-3 sm:py-2 cursor-pointer'>FR</div>
-                </a>
+                <div class='flex flex-auto flex-wrap justify-end m-auto gap-3'>
+                    <a href={'/en/projects'}>
+                        <div class='px-3 sm:px-3 sm:py-2 cursor-pointer bg-(--cyan) text-(--background) text-center min-w-20'>Projects</div>
+                    </a>
+                    <a href={'/en/blog'}>
+                        <div class='px-3 sm:px-3 sm:py-2 cursor-pointer bg-(--magenta) text-(--background) text-center min-w-20'>Blog</div>
+                    </a>
+                    <a href={'/en/about'}>
+                        <div class='px-3 sm:px-3 sm:py-2 cursor-pointer bg-(--yellow) text-(--background) text-center min-w-20'>About</div>
+                    </a>
+                    <a href={'/fr' + pathName.slice(3)}>
+                        <div class='px-3 sm:px-3 sm:py-2 cursor-pointer bg-(--text) text-(--background) text-center'>FR</div>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class='flex justify-center items-center'>
-            <div id='page-container' class='w-full mx-3 px-5'>
-                <slot />
-            </div>
+            <main>
+                <div class='flex justify-center items-center'>
+                    <main id='page-container' class='w-full mx-3 px-5 mb-20'>
+                        <slot />
+                    </main>
+                </div>
+            </main>
         </div>
     </body>
 </html>

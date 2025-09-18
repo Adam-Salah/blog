@@ -2,19 +2,15 @@
 title: Carte de bus Montréal
 author: Garutako
 image: ../../images/transit_map.png
-thumbnail: ../../transit_map.png
+thumbnail: ../../images/transit_map.png
 ---
 
-This app displays a real-time map of the Montréal Transport Society (STM) vehicle fleet. It was my first [Next.js](https://nextjs.org/) project and my introduction to [React](https://react.dev/) state management.  
-&nbsp;  
+Cette application affiche une carte en temps réel de la flotte de véhicules de la Société de transport de Montréal (STM). Il s'agit de mon premier projet réalisé avec [Next.js](https://nextjs.org/) et de mon introduction à la gestion d'état avec [React](https://react.dev/).
 
-The data I used comes from the [STM's open data APIs](https://www.stm.info/en/about/developers). Since the API allows 10,000 requests/day, I set poll rate to 10 seconds. This allows me to refresh data as often as possible without passing that threshold. The app then serves that data to the clients when requested. Currently, the client sends a request every 30 seconds, but this will be altered depending on performance. I might even use a different method to serve the data.  
-&nbsp;
+Les données utilisées proviennent des [API ouvertes de la STM](https://www.stm.info/en/about/developers). Étant donné que l'API autorise 10 000 requêtes par jour, j'ai fixé la fréquence des requêtes à 10 secondes d'intervale. Cela me permet d'actualiser les données aussi souvent que possible sans dépasser cette limite. L'application sert ensuite ces données aux clients sur demande. Présentement, le client envoie une requête toutes les 30 secondes, mais cette valeur pourra être ajusté en fonction des performances. Il est également possible que j'adopte une autre méthode pour distribuer les données.
 
-The most challenging part of working with this API was figuring out how to work with the [GTFS Real-Time](https://gtfs.org/documentation/realtime/reference/) specification. Transit companies all around the world use it to structure their API data to keep everything coherent between systems. Bus position data is encoded using Protocol Buffers (or Protobuf). The data structure is laid out in a [gtfs-realtime.proto](https://gtfs.org/documentation/realtime/proto/) file. For this project I chose to use the [gtfs-realtime-bindings](https://github.com/MobilityData/gtfs-realtime-bindings) library, which provides pre-generated JavaScript/TypeScript bindings for GTFS Realtime.  
-&nbsp;
+La difficulté principale que j'ai rencontré lors de l'utilisation de cette API a été la compréhension de la spécification [GTFS Real-Time](https://gtfs.org/documentation/realtime/reference/). Les sociétés de transport à travers le globe l'utilisent pour structurer leurs données et assurer la cohérence entre les systèmes. Les données de position des bus sont encodées à l'aide de Protocol Buffers (Protobuf). La structure des données est définie dans un fichier [gtfs-realtime.proto](https://gtfs.org/documentation/realtime/proto/). Pour ce projet, j'ai choisi d'utiliser la bibliothèque [gtfs-realtime-bindings](https://github.com/MobilityData/gtfs-realtime-bindings), qui fournit des liaisons JavaScript/TypeScript pré-générées pour GTFS Realtime.
 
-For the map, I used the [OpenLayers](https://openlayers.org/) library with [OpenStreetMap](https://www.openstreetmap.org) tiles as both technologies free and well documented, which is perfect for an introductory project like this one. I render marker directly on the map's canvas and use mouse events to detect interactions. The available data on a bus is displayed on a floating panel.  
-&nbsp;
+Pour la cartographie, j'ai utilisé la bibliothèque [OpenLayers](https://openlayers.org/) avec les tuiles [OpenStreetMap](https://www.openstreetmap.org), deux technologies libres et bien documentées, idéales pour un projet d'initiation. Les marqueurs sont dessinés directement sur le canevas de la carte et les interactions sont détectées via des événements souris. Les informations disponibles sur un bus sont affichées dans un panneau flottant.
 
-With the core of the application and it's basic UI finished, I am satisfied with this project. I do not have a server to host it on at the moment, so when I do I might revamp the project. I might also add more features such as displaying bus routes and schedules.
+Avec le cœur de l'application et son interface utilisateur de base terminés, je suis satisfait de ce projet. Je ne dispose pas actuellement de serveur pour l'héberger, mais lorsque ce sera le cas, il se pourrait que je le réorganise. J'envisage également d'ajouter des fonctionnalités telles que l'affichage des itinéraires et des horaires des bus.

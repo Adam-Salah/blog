@@ -4,22 +4,22 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const projectsURL = getRelativeLocaleUrl('fr', 'projects/')
+const projectsURL = getRelativeLocaleUrl('fr', 'projects/');
 
 const projects = await getCollection('projectsFR');
 ---
 
 <Layout>
-    <head>
+    <div>
         <title>Projects</title>
-    </head>
-    <div class='mx-auto px-5 max-w-200 grid grid-cols-2 gap-5'>
-        {
-            projects.map((project) => (
-                <a href={projectsURL + project.id} class='aspect-square overflow-hidden'>
-                    <Image src={project.data.thumbnail} alt={''} class='h-full w-full object-cover' />
-                </a>
-            ))
-        }
+        <div class='mx-auto px-5 max-w-200 grid grid-cols-2 gap-5'>
+            {
+                projects.map((project) => (
+                    <a href={projectsURL + project.id} class='aspect-square overflow-hidden'>
+                        <Image src={project.data.thumbnail} alt={''} class='h-full w-full object-cover' />
+                    </a>
+                ))
+            }
+        </div>
     </div>
 </Layout>
