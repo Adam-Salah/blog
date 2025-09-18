@@ -61,4 +61,4 @@ const projectsFR = defineCollection({
         }),
 });
 
-export const collections = { projectsEN: projectsEN, postsEN: postsEN, projectsFR: projectsEN, postsFR: postsFR };
+export const collections = { projectsEN: projectsEN, postsEN: postsEN, projectsFR: projectsFR, postsFR: postsFR };

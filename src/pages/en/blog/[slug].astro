@@ -1,5 +1,6 @@
 ---
 import Layout from '@pages/en/layout-en.astro';
+import Prose from '@src/components/Prose.astro';
 import { blogDateOptions } from '@src/global';
 import { Image } from 'astro:assets';
 import { getCollection, getEntry, render } from 'astro:content';
@@ -23,17 +24,19 @@ const { Content } = await render(post);
 ---
 
 <Layout>
-    <head>
+    <div>
         <title>{post.data.title}</title>
-    </head>
-    <div class='mx-auto max-w-200'>
-        <p>{post.data.date.toLocaleDateString('en-CA', blogDateOptions)}</p>
-        <h1>{post.data.title}</h1>
-        <br />
-        <div class='aspect-5/2 overflow-hidden'>
-            <Image src={post.data.image} alt={''} class='h-full w-full object-cover' />
+        <div class='mx-auto max-w-200'>
+            <p>{post.data.date.toLocaleDateString('en-CA', blogDateOptions)}</p>
+            <h1>{post.data.title}</h1>
+            <br />
+            <div class='aspect-5/2 overflow-hidden'>
+                <Image src={post.data.image} alt={''} class='h-full w-full object-cover' />
+            </div>
+            <br />
+            <Prose>
+                <Content />
+            </Prose>
         </div>
-        <br />
-        <Content />
     </div>
 </Layout>

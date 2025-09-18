@@ -1,11 +1,132 @@
 ---
-import Layout from '@pages/fr/layout-fr.astro';
-import Banner from '@components/Banner.astro';
+import '@src/global.css';
 ---
 
-<Layout>
-    <head>
-        <title>Garutako</title>
-    </head>
-    <Banner />
-</Layout>
+<script>
+    import { animate, hover, type AnimationPlaybackControlsWithThen, type AnimationSequence, type ElementOrSelector } from 'motion';
+
+    const welcomeCyan = document.getElementById('welcome-c')!;
+    const welcomeMagenta = document.getElementById('welcome-m')!;
+    const welcomeYellow = document.getElementById('welcome-y')!;
+    const welcomeKey = document.getElementById('welcome-k')!;
+    const backgroundCyan = document.getElementById('background-c')!;
+    const backgroundMagenta = document.getElementById('background-m')!;
+    const backgroundYellow = document.getElementById('background-y')!;
+    const titleCyan = document.getElementById('title-c')!;
+    const titleCyan2 = document.getElementById('title-c2')!;
+    const titleMagenta = document.getElementById('title-m')!;
+    const titleMagenta2 = document.getElementById('title-m2')!;
+    const titleYellow = document.getElementById('title-y')!;
+    const titleYellow2 = document.getElementById('title-y2')!;
+    const startButton = document.getElementById('start-button')!;
+
+    //Populate text
+    titleCyan.innerHTML = 'Projets '.repeat(50) + '&nbsp;';
+    titleCyan2.innerHTML = 'Projets '.repeat(50) + '&nbsp;';
+    titleMagenta.innerHTML = 'Blog '.repeat(50) + '&nbsp;';
+    titleMagenta2.innerHTML = 'Blog '.repeat(50) + '&nbsp;';
+    titleYellow.innerHTML = 'À propos '.repeat(50) + '&nbsp;';
+    titleYellow2.innerHTML = 'À propos '.repeat(50) + '&nbsp;';
+
+    //Start animations
+    const sequence: AnimationSequence = [
+        //Hide start button
+        [startButton, { opacity: 0 }, { duration: 0.2 }],
+        [startButton, { display: 'none' }, { at: 0.2 }],
+        //Show welcome text
+        [welcomeCyan, { top: ['50%', '15%'], opacity: ['150%', '0%'], display: 'block' }, { ease: 'circOut', duration: 0.5, at: 0.0 }],
+        [welcomeMagenta, { opacity: ['150%', '0%'], display: 'block' }, { ease: 'circOut', duration: 0.5, at: 0.0 }],
+        [welcomeYellow, { top: ['50%', '85%'], opacity: ['150%', '0%'], display: 'block' }, { ease: 'circOut', duration: 0.5, at: 0.0 }],
+        //Fade out welcome text
+        [[welcomeCyan, welcomeMagenta, welcomeYellow], { opacity: ['150%', '0%'] }, { ease: 'easeIn', duration: 0.5, at: 0.4 }],
+        //Slide background in
+        [backgroundCyan, { left: ['-100%', '0%'], display: 'block' }, { ease: 'easeOut', duration: 0.8, at: 0.3 }],
+        [backgroundMagenta, { left: ['100%', '0%'], display: 'block' }, { ease: 'easeOut', duration: 0.8, at: 0.3 }],
+        [backgroundYellow, { left: ['-100%', '0%'], display: 'block' }, { ease: 'easeOut', duration: 0.8, at: 0.3 }],
+        //Hide welcome text
+        [[welcomeCyan, welcomeMagenta, welcomeYellow], { display: 'none' }, { at: 0.5 }],
+        //Show titles
+        [[titleCyan, titleCyan2, titleMagenta, titleMagenta2, titleYellow, titleYellow2], { display: 'block' }, { at: 0.3 }],
+    ];
+
+    //Start button
+    startButton.addEventListener('click', () => {
+        welcomeKey.style.display = 'none';
+        const animation = animate(sequence);
+
+        //Animate titles
+        const animTitleCyan = animate([titleCyan], { translateX: ['0%', '100%'] }, { duration: 200, repeat: Infinity, ease: 'linear' });
+        const animTitleCyan2 = animate(titleCyan2, { translateX: ['-100%', '0%'] }, { duration: 200, repeat: Infinity, ease: 'linear' });
+        const animTitleMagenta = animate([titleMagenta], { translateX: ['100%', '0%'] }, { duration: 137, repeat: Infinity, ease: 'linear' });
+        const animTitleMagenta2 = animate(titleMagenta2, { translateX: ['0%', '-100%'] }, { duration: 137, repeat: Infinity, ease: 'linear' });
+        const animTitleYellow = animate([titleYellow], { translateX: ['0%', '100%'] }, { duration: 253, repeat: Infinity, ease: 'linear' });
+        const animTitleYellow2 = animate(titleYellow2, { translateX: ['-100%', '0%'] }, { duration: 253, repeat: Infinity, ease: 'linear' });
+
+        const hoverFunc = (anims: [AnimationPlaybackControlsWithThen, AnimationPlaybackControlsWithThen]) => {
+            return (element: Element) => {
+                anims[0].pause();
+                anims[1].pause();
+                const animation = animate(element, { scale: ['100%', '103%'], zIndex: [0, 100] }, { duration: 0.1 });
+                return () => {
+                    animation.stop();
+                    anims[0].play();
+                    anims[1].play();
+                    animate([[element, { scale: ['103%', '100%'] }, { duration: 0.1 }]]);
+                    animate(100, 0, {
+                        onUpdate: (latest) => (document.getElementById(element.id)!.style.zIndex = latest.toString()),
+                        duration: 0.02,
+                    });
+                };
+            };
+        };
+
+        //Wait for animations to be done to detect hover
+        animation.then(() => {
+            window.addEventListener(
+                'pointermove',
+                () => {
+                    //Animate hovers
+                    hover(backgroundCyan, hoverFunc([animTitleCyan, animTitleCyan2]));
+                    hover(backgroundMagenta, hoverFunc([animTitleMagenta, animTitleMagenta2]));
+                    hover(backgroundYellow, hoverFunc([animTitleYellow, animTitleYellow2]));
+                },
+                { once: true }
+            );
+        });
+    });
+</script>
+<title>Garutako</title>
+<div>
+    <div class='h-[100vh] w-[100vw] fixed -z-100 bg-(--background)'>
+        <div class='text-2xl sm:text-5xl font-extrabold'>
+            <h1 id='welcome-c' class='hidden absolute midify opacity-100 text-(--cyan)'>Bienvenue</h1>
+            <h1 id='welcome-m' class='hidden absolute midify opacity-100 text-(--magenta)'>Bienvenue</h1>
+            <h1 id='welcome-y' class='hidden absolute midify opacity-100 text-(--yellow)'>Bienvenue</h1>
+            <h1 id='welcome-k' class='absolute top-[50%] midify opacity-100 text-(--key)'>Bienvenue</h1>
+        </div>
+        <div class='text-4xl sm:text-7xl font-bold text-(--beige)'>
+            <a href={'/fr/projects'} id='background-c' class='hidden absolute w-full h-1/3 justify-center bg-(--cyan) cursor-pointer'>
+                <h2 id='title-c' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>Projets</h2>
+                <h2 id='title-c2' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>Projets</h2>
+            </a>
+            <a href={'/fr/blog'} id='background-m' class='hidden absolute w-full top-1/3 h-1/3 bg-(--magenta) cursor-pointer'>
+                <h2 id='title-m' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre left-[3ch]'>Blog</h2>
+                <h2 id='title-m2' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre left-[3ch]'>Blog</h2>
+            </a>
+            <a href={'/fr/about'} id='background-y' class='hidden absolute w-full top-2/3 h-1/3 bg-(--yellow) cursor-pointer'>
+                <h2 id='title-y' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>À propos</h2>
+                <h2 id='title-y2' class='hidden absolute top-[40%] sm:top-[30%] whitespace-pre right-[3ch]'>À propos</h2>
+            </a>
+        </div>
+        <div id='start-button' class='absolute midify !top-[70%] w-15 h-15 rounded-full bg-(--key) cursor-pointer'>
+            <div class='absolute midify w-5 h-5 bg-(--beige) right-tri'></div>
+        </div>
+        <a href={'/en'}>
+            <div
+                class='absolute right-0 top-0 pt-5 pr-5 pl-11.5 pb-12 text-2xl font-extrabold rounded-bl-full cursor-pointer bg-(--text) text-(--background) text-center z-200'
+            >
+                EN
+            </div>
+        </a>
+    </div>
+</div>

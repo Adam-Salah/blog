@@ -1,5 +1,6 @@
 ---
 import Layout from '@pages/en/layout-en.astro';
+import Prose from '@src/components/Prose.astro';
 import { Image } from 'astro:assets';
 import { getCollection, getEntry, render } from 'astro:content';
 
@@ -23,17 +24,19 @@ const { Content } = await render(project);
 ---
 
 <Layout>
-    <head>
+    <div>
         <title>{project.data.title}</title>
-    </head>
-    <div class='mx-auto max-w-200'>
-        <h1>{project.data.title}</h1>
-        <h2>{project.data.author}</h2>
-        <br />
-        <div class='aspect-5/2 overflow-hidden'>
-            <Image src={project.data.image} alt={''} class='h-full w-full object-cover' />
+        <div class='mx-auto max-w-200'>
+            <h1>{project.data.title}</h1>
+            <h2>{project.data.author}</h2>
+            <br />
+            <div class='aspect-5/2 overflow-hidden'>
+                <Image src={project.data.image} alt={''} class='h-full w-full object-cover' />
+            </div>
+            <br />
+            <Prose>
+                <Content />
+            </Prose>
         </div>
-        <br />
-        <Content />
     </div>
 </Layout>

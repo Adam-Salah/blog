@@ -1,0 +1,76 @@
+<script>
+    const fps = 240;
+    const name = "garu";
+
+    let previousTime: number;
+    requestAnimationFrame(loop);
+
+    function loop(now: number) {
+        requestAnimationFrame(loop);
+
+        if (!previousTime) {
+            previousTime = now;
+        }
+        let dt = now - previousTime;
+        if (dt > 1000 / fps) {
+            animate(dt / 1000);
+            previousTime = now;
+        }
+    }
+
+    const evenLines: HTMLElement[] = [];
+    const oddLines: HTMLElement[] = [];
+
+    const nameDiv = document.getElementById("name")!;
+    const nameLine = (name + " ").repeat(25);
+    for (let i = 0; i < 50; i++) {
+        const nameParagraph = document.createElement("p");
+        nameParagraph.innerHTML = nameLine;
+        nameParagraph.style.backgroundColor = 'var(--background)'
+        nameParagraph.style.margin = '-5px';
+        nameParagraph.style.wordSpacing = '-50%';
+        nameDiv.appendChild(nameParagraph);
+
+        if (i % 2 == 0) {
+            evenLines.push(nameParagraph);
+        } else {
+            oddLines.push(nameParagraph);
+        }
+    }
+
+    const bannerContainer = document.getElementById("banner-container")!;
+
+    let timeElapsed = 0;
+    function animate(dt: number) {
+        timeElapsed += dt;
+        timeElapsed = timeElapsed % 4.5;
+
+        //Horizontal line movement
+        const xOffset = timeElapsed;
+        evenLines.forEach((line) => {
+            line.style.transform = `translate(${xOffset}ch)`;
+        });
+        oddLines.forEach((line) => {
+            line.style.transform = `translate(-${xOffset}ch)`;
+        });
+
+        // Scroll Hide Banner
+        const scrollOffset = window.scrollY;
+        const pageHeight = document.body.clientHeight;
+
+        bannerContainer.style.height = `${pageHeight - scrollOffset}px`
+    }
+</script>
+<div class="flex justify-center">
+    <div
+        class="fixed w-full h-[100vh] text-[3em] sm:text-[5em] overflow-hidden select-none font-banner font-bold"
+        id="banner-container"
+    >
+        <div
+            class="relative -translate-y-[50vh] rotate-30 whitespace-nowrap"
+            id="name-container"
+        >
+            <div class="absolute" id="name"></div>
+        </div>
+    </div>
+</div>
