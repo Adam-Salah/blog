@@ -2,7 +2,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import Sonda from 'sonda/astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,13 +12,13 @@ export default defineConfig({
             sourcemap: true,
         },
     },
-    integrations: [sitemap(), Sonda()],
+    integrations: [sitemap()],
     i18n: {
         locales: ['en', 'fr'],
         defaultLocale: 'en',
         routing: {
             prefixDefaultLocale: true,
-            redirectToDefaultLocale: false,
+            redirectToDefaultLocale: true,
         },
     },
     prefetch: {
