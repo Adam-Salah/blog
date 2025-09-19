@@ -12,7 +12,7 @@ const projects = await getCollection('projectsEN');
 <Layout>
     <div>
         <title>Projects</title>
-        <div class='mx-auto px-5 max-w-200 grid grid-cols-2 gap-5'>
+        <div class='mx-auto px-5 max-w-200 grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {
                 projects.map((project) => (
                     <a href={projectsURL + project.id} class='aspect-square overflow-hidden'>
