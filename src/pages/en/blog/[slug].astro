@@ -28,7 +28,7 @@ const { Content } = await render(post);
         <title>{post.data.title}</title>
         <div class='mx-auto max-w-200'>
             <p>{post.data.date.toLocaleDateString('en-CA', blogDateOptions)}</p>
-            <h1>{post.data.title}</h1>
+            <h1 class="font-bold">{post.data.title}</h1>
             <br />
             <div class='aspect-5/2 overflow-hidden'>
                 <Image src={post.data.image} alt={''} class='h-full w-full object-cover' />
